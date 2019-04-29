@@ -369,12 +369,24 @@
                 
               
 
-              <time title="Created: 2019-04-28 14:40:23 / Modified: 21:11:11" itemprop="dateCreated datePublished" datetime="2019-04-28T14:40:23+08:00">2019-04-28</time>
+              <time title="Created: 2019-04-28 14:40:23" itemprop="dateCreated datePublished" datetime="2019-04-28T14:40:23+08:00">2019-04-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-29 08:55:30" itemprop="dateModified" datetime="2019-04-29T08:55:30+08:00">2019-04-29</time>
               
             
           </span>
@@ -430,14 +442,14 @@
           
             <h4 id="序列标注"><a href="#序列标注" class="headerlink" title="序列标注"></a>序列标注</h4><p>标注有6种，分别为<em>‘O’:0, ‘B-LOC’:1, ‘I-LOC’:2, ‘B-PER’:3, ‘I-PER’:4, ‘B-ORG’:5, ‘I-ORG’:6</em> 。使用bi-lstm和crf对命名实体进行序列标注。</p>
 <h5 id="Bi-lstm"><a href="#Bi-lstm" class="headerlink" title="Bi-lstm"></a>Bi-lstm</h5><p>结构如特所示：</p>
-<p><img src="/Users/chenjie/Blog/source/_posts/序列标注/1.png" alt></p>
+<p><img src="/cj.github.io//yoursite.com/2019/04/28/序列标注/1.png" alt></p>
 <p>使用双向的lstm可以获取句子的上下文信息，相当于提取出了句子的特征，然后通过CRF进行分类，计算出每个结果的特征。</p>
 <p>Bi-lstm的输出作为CRF的输入，相当于发射概率的值。</p>
 <h5 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h5><p>实质：最大熵模型+边特征（隐马尔可夫过程的无向图模型）</p>
-<p><img src="/Users/chenjie/Blog/source/_posts/序列标注/2.png" alt></p>
+<p><img src="/cj.github.io//yoursite.com/2019/04/28/序列标注/2.png" alt></p>
 <p>CRF为了避免最后的预测结果开头不为B，或者出现一些像BB不可能出现的标注方式。计算每个结点和每条边的代价（即，特征函数乘以相应的特征函数）边特征即蕴含了不允许BB这种情况出现，因为他的输出结果存在序列原因。</p>
 <p>具体例子：给定一个线性链条件随机场，n = 3 ，状态的可能取值为 5 和 7 。设 y(0)=start=5、y(n+1)=stop=5 ，且 M 矩阵在 i = 1,2,…,n+1 的值已知，求状态序列以 start 为起点、以stop为终点的所有状态路径的非规范化及规范化概率。</p>
-<p><img src="/Users/chenjie/Blog/source/_posts/序列标注/3.png" alt></p>
+<p><img src="/cj.github.io//yoursite.com/2019/04/28/序列标注/3.png" alt></p>
 <p>M为状态转移矩阵。最后计算的结果即是标签的概率值。</p>
 
           
