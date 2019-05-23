@@ -324,6 +324,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/23/289-生命游戏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cj的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/05/23/289-生命游戏/" class="post-title-link" itemprop="url">289.生命游戏</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-23 17:14:00 / Modified: 17:20:01" itemprop="dateCreated datePublished" datetime="2019-05-23T17:14:00+08:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据<a href="https://baike.baidu.com/item/生命游戏/2926434?fr=aladdin" target="_blank" rel="noopener">百度百科</a>，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 <em>live</em>（1）即为活细胞， 或 <em>dead</em>（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<ol>
+<li>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；</li>
+<li>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；</li>
+<li>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；</li>
+<li>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；</li>
+</ol>
+<p>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">[</span><br><span class="line">  [0,1,0],</span><br><span class="line">  [0,0,1],</span><br><span class="line">  [1,1,1],</span><br><span class="line">  [0,0,0]</span><br><span class="line">]</span><br><span class="line">输出: </span><br><span class="line">[</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [0,1,1],</span><br><span class="line">  [0,1,0]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><em>思路：傻瓜式遍历，判断当前活细胞活着死细胞是否符合变活/变死条件，则将改状态存储在临时的board里面，最后再赋值回去</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gameOfLife</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r=board.size(), c=board[<span class="number">0</span>].size(); </span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans(r, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(c,<span class="number">0</span>));</span><br><span class="line">        <span class="comment">// cout&lt;&lt;ans.size()&lt;&lt;" "&lt;&lt;ans[0].size()&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;r;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;c;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j];</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j+<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=<span class="number">0</span> &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=<span class="number">0</span> &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i][j+<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j+<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(board[i][j]==<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(cnt==<span class="number">2</span> || cnt==<span class="number">3</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ans[i][j]=<span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        ans[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(cnt==<span class="number">3</span>)</span><br><span class="line">                        ans[i][j]=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        ans[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       board =ans; </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>但是，这样么哦哥循环需要进行8个if判断，耗时，因此可以将矩阵用0padding一层，这样必定不会超界。执行速度会快很多</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gameOfLife</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> m = board.size();</span><br><span class="line">	<span class="keyword">int</span> n = board[<span class="number">0</span>].size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; tmp(m + <span class="number">2</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">2</span>, <span class="number">0</span>));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i + <span class="number">1</span>][j + <span class="number">1</span>] = board[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m + <span class="number">1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n + <span class="number">1</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> ans = tmp[i - <span class="number">1</span>][j - <span class="number">1</span>] + tmp[i - <span class="number">1</span>][j] + tmp[i - <span class="number">1</span>][j + <span class="number">1</span>] + tmp[i][j - <span class="number">1</span>] + tmp[i][j + <span class="number">1</span>] + tmp[i + <span class="number">1</span>][j] + tmp[i + <span class="number">1</span>][j - <span class="number">1</span>] + tmp[i + <span class="number">1</span>][j + <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span> (tmp[i][j] == <span class="number">0</span> &amp;&amp; ans == <span class="number">3</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				board[i - <span class="number">1</span>][j - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (tmp[i][j] == <span class="number">1</span> &amp;&amp; (ans &lt; <span class="number">2</span> || ans &gt; <span class="number">3</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				board[i - <span class="number">1</span>][j - <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/22/131-分割回文串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1913,7 +2070,7 @@
                 
                   <a href="/cj/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
