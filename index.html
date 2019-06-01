@@ -324,6 +324,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cj的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/" class="post-title-link" itemprop="url">106.从中序与后序遍历序列构造二叉树</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-01 14:41:49 / Modified: 14:47:45" itemprop="dateCreated datePublished" datetime="2019-06-01T14:41:49+08:00">2019-06-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据一棵树的中序遍历与后序遍历构造二叉树。</p>
+<p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p>
+<p>例如，给出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">中序遍历 inorder = [9,3,15,20,7]</span><br><span class="line">后序遍历 postorder = [9,15,7,20,3]</span><br></pre></td></tr></table></figure>
+<p>返回如下的二叉树：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p><em>思路：其实这个就是很好想啊，按照流程来就好了，但是细节需要注意啊</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(inorder.size()==<span class="number">0</span>||postorder.size()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> helper(inorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>,postorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder,<span class="keyword">int</span> s1,<span class="keyword">int</span> e1,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder,<span class="keyword">int</span> s2,<span class="keyword">int</span> e2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      <span class="comment">//递归终止条件，左右子树没有都为空</span></span><br><span class="line">       <span class="keyword">if</span>(s1&gt;e1 || s2&gt;e2)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> val = postorder[e2];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=s1;i&lt;=e1;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(inorder[i]==val)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;"----------";</span></span><br><span class="line">      <span class="comment">//左子树长度tmp-s1，后续便利的索引为s2+tmp-s1-1</span></span><br><span class="line">        root-&gt;left = helper(inorder,s1, tmp<span class="number">-1</span>,postorder,s2,s2+tmp-s1<span class="number">-1</span>);</span><br><span class="line">      <span class="comment">//右子树的长度为e1-tmp，因此后序遍历的开始索引为e2-（e1-tmp）</span></span><br><span class="line">        root-&gt;right = helper(inorder,tmp+<span class="number">1</span>, e1,postorder,e2-e1+tmp,e2<span class="number">-1</span>);</span><br><span class="line">      <span class="comment">//注意索引的开始和结束的具体位置和递归结束的条件，小心测试，一般都不难</span></span><br><span class="line">        <span class="comment">// cout&lt;&lt;"**************";</span></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/29/114-二叉树展开为链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1823,217 +1991,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/04/28/序列标注/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/04/28/序列标注/" class="post-title-link" itemprop="url">序列标注</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-28 14:40:23" itemprop="dateCreated datePublished" datetime="2019-04-28T14:40:23+08:00">2019-04-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-11 15:25:29" itemprop="dateModified" datetime="2019-05-11T15:25:29+08:00">2019-05-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="序列标注"><a href="#序列标注" class="headerlink" title="序列标注"></a>序列标注</h4><p>标注有6种，分别为<em>‘O’:0, ‘B-LOC’:1, ‘I-LOC’:2, ‘B-PER’:3, ‘I-PER’:4, ‘B-ORG’:5, ‘I-ORG’:6</em> 。使用bi-lstm和crf对命名实体进行序列标注。</p>
-<h5 id="Bi-lstm"><a href="#Bi-lstm" class="headerlink" title="Bi-lstm"></a>Bi-lstm</h5><p>结构如特所示：</p>
-<p><img src="/cj/2019/04/28/序列标注/1.png" alt></p>
-<p>使用双向的lstm可以获取句子的上下文信息，相当于提取出了句子的特征，然后通过CRF进行分类，计算出每个结果的特征。</p>
-<p>Bi-lstm的输出作为CRF的输入，相当于发射概率的值。</p>
-<p>使用tensorflow构建Bi-LSTM代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cell_fw = tf.contrib.rnn.LSTMCell(num_units=<span class="number">100</span>)</span><br><span class="line">cell_bw = tf.contrib.rnn.LSTMCell(num_units=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">(outputs, output_states) = tf.nn.bidirectional_dynamic_rnn(cell_fw, cell_bw, inputs, sequence_length=<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
-<p>num_units: 输出向量的维度</p>
-<p>inputs: [None, n_steps, n_inputs], 例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">inputs_batch = np.array([</span><br><span class="line">        <span class="comment"># step 0     step 1</span></span><br><span class="line">        [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], [<span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>]], <span class="comment"># instance 1</span></span><br><span class="line">        [[<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]], <span class="comment"># instance 2 (padded with zero vectors)</span></span><br><span class="line">        [[<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>], [<span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>]], <span class="comment"># instance 3</span></span><br><span class="line">        [[<span class="number">9</span>, <span class="number">0</span>, <span class="number">1</span>], [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]], <span class="comment"># instance 4</span></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
-<p>行数随意，有两列，每列中个数为3.</p>
-<p>outputs是最后一层每个step的输出，它的结构是[batch_size，step，n_neurons] = [4，2，5]，states是每一层的最后那个step的输出.</p>
-<p>inputs和sequence_length（不能太长）是必须要考虑到的数据，必须提前设定。</p>
-<ul>
-<li><p>outputs:一个(output_fw,output_bw)元组，包含前向和后向rnn输出的张量。如果time_major=False(默认的),output_fw是一个形如[batch_size,max_time,cell_fw.output_size]的张量，output_bw是一个形如[batch_size,max_time,cell_bw.output_size]的张量。如果time_major==True，output_fw是一个形如[max_time, batch_size,cell_fw.output_size]的张量，output_bw是一个形如[max_time, batch_size,cell_bw.output_size]的张量。与bidirectioinal_rnn不同，它返回一个元组而不是单个连接的Tensor。如果首选连接的，则前向和后向输出可连接为tf.concat(outputs,2)。</p>
-</li>
-<li><p>output_states:一个(output_state_fw,output_state_bw)的元组，包含bidirectional rnn的前向和后向的最终状态。这个类有两个属性c和h，分别表示Memory Cell和Hidden State，如下图：<img src="/cj/2019/04/28/序列标注/5.png" alt="5"></p>
-</li>
-</ul>
-<p>  <code>sequence_length_batch = np.array([2, 1, 2, 2])</code></p>
-<p><img src="/cj/2019/04/28/序列标注/4.png" alt="4"></p>
-<h5 id="CRF"><a href="#CRF" class="headerlink" title="CRF"></a>CRF</h5><p>实质：最大熵模型+边特征（隐马尔可夫过程的无向图模型）</p>
-<p><img src="/cj/2019/04/28/序列标注/2.png" alt></p>
-<p>CRF为了避免最后的预测结果开头不为B，或者出现一些像BB不可能出现的标注方式。计算每个结点和每条边的代价（即，特征函数乘以相应的特征函数）边特征即蕴含了不允许BB这种情况出现，因为他的输出结果存在序列原因。</p>
-<p>具体例子：给定一个线性链条件随机场，n = 3 ，状态的可能取值为 5 和 7 。设 y(0)=start=5、y(n+1)=stop=5 ，且 M 矩阵在 i = 1,2,…,n+1 的值已知，求状态序列以 start 为起点、以stop为终点的所有状态路径的非规范化及规范化概率。</p>
-<p><img src="/cj/2019/04/28/序列标注/3.png" alt></p>
-<p>M为状态转移矩阵。最后计算的结果即是标签的概率值。</p>
-<p>具体实现：</p>
-<p>将LSTM的输出通过线性变换得到维度为[batch_size, max_seq_len, num_tags]的张量，这个张量再作为一元势函数（Unary Potentials）输入到CRF层。</p>
-<p><img src="/cj/2019/04/28/序列标注/6.png" alt="6"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将两个LSTM的输出合并</span></span><br><span class="line">output_fw, output_bw = outputs</span><br><span class="line">output = tf.concat([output_fw, output_bw], axis=<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 变换矩阵，可训练参数</span></span><br><span class="line">W = tf.get_variable(<span class="string">"W"</span>, [<span class="number">2</span> * num_units, num_tags])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 线性变换</span></span><br><span class="line">matricized_output = tf.reshape(output, [<span class="number">-1</span>, <span class="number">2</span> * num_units])</span><br><span class="line"><span class="comment">#还可以加上偏执b</span></span><br><span class="line">matricized_unary_scores = tf.matmul(matricized_output , W)</span><br><span class="line">unary_scores = tf.reshape(matricized_unary_scores, [batch_size, max_seq_len, num_tags])</span><br></pre></td></tr></table></figure>
-<p><strong>损失函数</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Loss函数</span></span><br><span class="line">log_likelihood, transition_params = tf.contrib.crf.crf_log_likelihood(unary_scores, tags, sequence_lengths)</span><br><span class="line">loss = tf.reduce_mean(-log_likelihood)</span><br></pre></td></tr></table></figure>
-<p>tags：维度为[batch_size, max_seq_len]的矩阵，也就是Golden标签，注意这里的标签都是以索引方式表示的。<br>sequence_lengths：维度为[batch_size]的向量，记录了每个序列的长度。</p>
-<p>log_likelihood：维度为[batch_size]的向量，每个元素代表每个给定序列的Log-Likelihood。 </p>
-<p>transition_params ：维度为[num_tags, num_tags]的转移矩阵。注意这里的转移矩阵不像传统的HMM概率转移矩阵那样要求每个元素非负且每一行的和为1，这里的每个元素取值范围是实数（正负都可以）。</p>
-<p><strong>解码</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decode_tags, best_score = tf.contrib.crf.crf_decode(unary_scores, transition_params, sequence_lengths)</span><br></pre></td></tr></table></figure>
-<p>decode_tags：维度为[batch_size, max_seq_len]的矩阵，包含最高分的标签序列。<br>best_score ：维度为[batch_size]的向量，包含最高分数。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2082,7 +2039,7 @@
                 
                   <a href="/cj/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
