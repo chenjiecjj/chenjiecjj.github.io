@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="n个节点构成的二叉树个数:  C(2*n,n)/(n+1)  所谓系统调用，就是内核提供的、功能十分强大的一系列的函数。这些系统调用是在内核中实现的，再通过一定的方式把系统调用给用户，一般都通过门(gate)陷入(trap)实现。系统调用是用户程序和内核交互的接口。5个系统调用∶open,write,read,close,ioctl。">
-<meta name="keywords" content="面试错题">
+  <meta name="description" content="在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。 示例 1: 输入: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3输出: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4示例 2: 输入: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0输出: -1-&amp;gt;0-&amp;gt;3-&amp;gt;4-&amp;gt;5 不知道为甚么，我对归并排序一点都不敏感 12345678910111213141516">
+<meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="knowlege">
-<meta property="og:url" content="https://chenjiecjj.github.io/2019/05/20/knowledge/index.html">
+<meta property="og:title" content="148.排序链表">
+<meta property="og:url" content="https://chenjiecjj.github.io/2019/06/20/148-排序链表/index.html">
 <meta property="og:site_name" content="cj的学习之路">
-<meta property="og:description" content="n个节点构成的二叉树个数:  C(2*n,n)/(n+1)  所谓系统调用，就是内核提供的、功能十分强大的一系列的函数。这些系统调用是在内核中实现的，再通过一定的方式把系统调用给用户，一般都通过门(gate)陷入(trap)实现。系统调用是用户程序和内核交互的接口。5个系统调用∶open,write,read,close,ioctl。">
+<meta property="og:description" content="在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。 示例 1: 输入: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3输出: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4示例 2: 输入: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0输出: -1-&amp;gt;0-&amp;gt;3-&amp;gt;4-&amp;gt;5 不知道为甚么，我对归并排序一点都不敏感 12345678910111213141516">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-20T07:20:25.440Z">
+<meta property="og:updated_time" content="2019-07-01T07:15:06.432Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="knowlege">
-<meta name="twitter:description" content="n个节点构成的二叉树个数:  C(2*n,n)/(n+1)  所谓系统调用，就是内核提供的、功能十分强大的一系列的函数。这些系统调用是在内核中实现的，再通过一定的方式把系统调用给用户，一般都通过门(gate)陷入(trap)实现。系统调用是用户程序和内核交互的接口。5个系统调用∶open,write,read,close,ioctl。">
+<meta name="twitter:title" content="148.排序链表">
+<meta name="twitter:description" content="在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。 示例 1: 输入: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3输出: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4示例 2: 输入: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0输出: -1-&amp;gt;0-&amp;gt;3-&amp;gt;4-&amp;gt;5 不知道为甚么，我对归并排序一点都不敏感 12345678910111213141516">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://chenjiecjj.github.io/2019/05/20/knowledge/">
+  <link rel="canonical" href="https://chenjiecjj.github.io/2019/06/20/148-排序链表/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>knowlege | cj的学习之路</title>
+  <title>148.排序链表 | cj的学习之路</title>
   
 
 
@@ -324,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/20/knowledge/">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/06/20/148-排序链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cj">
@@ -341,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">knowlege
+          <h1 class="post-title" itemprop="name headline">148.排序链表
 
               
             
@@ -367,12 +367,24 @@
                 
               
 
-              <time title="Created: 2019-05-20 14:31:36 / Modified: 15:20:25" itemprop="dateCreated datePublished" datetime="2019-05-20T14:31:36+08:00">2019-05-20</time>
+              <time title="Created: 2019-06-20 19:44:42" itemprop="dateCreated datePublished" datetime="2019-06-20T19:44:42+08:00">2019-06-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-01 15:15:06" itemprop="dateModified" datetime="2019-07-01T15:15:06+08:00">2019-07-01</time>
               
             
           </span>
@@ -389,7 +401,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Knowledge/" itemprop="url" rel="index"><span itemprop="name">Knowledge</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
 
                 
                 
@@ -424,13 +436,12 @@
       
 
       
-        <ol>
-<li><p>n个节点构成的二叉树个数:  <code>C(2*n,n)/(n+1)</code></p>
-</li>
-<li><p>所谓系统调用，就是内核提供的、功能十分强大的一系列的函数。这些系统调用是在内核中实现的，再通过一定的方式把系统调用给用户，一般都通过门(gate)陷入(trap)实现。系统调用是用户程序和内核交互的接口。5个系统调用∶open,write,read,close,ioctl。</p>
-</li>
-<li></li>
-</ol>
+        <p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
+<p>示例 1:</p>
+<p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4<br>示例 2:</p>
+<p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</p>
+<p><em>不知道为甚么，我对归并排序一点都不敏感</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mergeSort(head);</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="function">ListNode* <span class="title">mergeSort</span><span class="params">(ListNode* node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node || !node-&gt;next) <span class="keyword">return</span> node;</span><br><span class="line">        <span class="comment">//快慢指针，找到中点</span></span><br><span class="line">        ListNode* fast = node;</span><br><span class="line">        ListNode* slow = node;</span><br><span class="line">        ListNode* breakN = node;</span><br><span class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next) &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            breakN = slow;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        breakN-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode *l1 = mergeSort(node);</span><br><span class="line">        ListNode *l2 = mergeSort(slow);</span><br><span class="line">        <span class="keyword">return</span> merge(l1, l2);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//递归到底的情况</span></span><br><span class="line">        <span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        <span class="comment">//分情况递归实现</span></span><br><span class="line">        <span class="keyword">if</span> (l1-&gt;val &lt;= l2-&gt;val) &#123;</span><br><span class="line">            l1-&gt;next = merge(l1-&gt;next, l2);</span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l2-&gt;next = merge(l2-&gt;next, l1);</span><br><span class="line">            <span class="keyword">return</span> l2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -454,7 +465,7 @@
       
         <div class="post-tags">
           
-            <a href="/cj/tags/面试错题/" rel="tag"># 面试错题</a>
+            <a href="/cj/tags/Leetcode/" rel="tag"># Leetcode</a>
           
         </div>
       
@@ -467,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/cj/2019/05/12/701-二叉搜索树中的插入操作/" rel="next" title="701.二叉搜索树中的插入操作">
-                <i class="fa fa-chevron-left"></i> 701.二叉搜索树中的插入操作
+              <a href="/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/" rel="next" title="106.从中序与后序遍历序列构造二叉树">
+                <i class="fa fa-chevron-left"></i> 106.从中序与后序遍历序列构造二叉树
               </a>
             
           </div>
@@ -477,8 +488,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cj/2019/05/20/877-石子游戏/" rel="prev" title="877.石子游戏">
-                877.石子游戏 <i class="fa fa-chevron-right"></i>
+              <a href="/cj/2019/07/01/24-两两交换链表中的节点/" rel="prev" title="24.两两交换链表中的节点">
+                24.两两交换链表中的节点 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
