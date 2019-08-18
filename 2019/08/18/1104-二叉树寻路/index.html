@@ -96,20 +96,21 @@
 
 
 
-  <meta name="description" content="给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中的数字可以无限制重复被选取。 说明：  所有数字（包括 target）都是正整数。 解集不能包含重复的组合。   示例 1: 123456输入: candidates = [2,3,6,7], target = 7,所求解集">
+  <meta name="description" content="在一棵无限的二叉树上，每个节点都有两个子节点，树中的节点 逐行 依次按 “之” 字形进行标记。 如下图所示，在奇数行（即，第一行、第三行、第五行……）中，按从左到右的顺序进行标记； 而偶数行（即，第二行、第四行、第六行……）中，按从右到左的顺序进行标记。  给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。 示例 1： 输入">
 <meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="39.组合总和">
-<meta property="og:url" content="https://chenjiecjj.github.io/2019/04/25/39-组合总和/index.html">
+<meta property="og:title" content="1104.二叉树寻路">
+<meta property="og:url" content="https://chenjiecjj.github.io/2019/08/18/1104-二叉树寻路/index.html">
 <meta property="og:site_name" content="cj的学习之路">
-<meta property="og:description" content="给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中的数字可以无限制重复被选取。 说明：  所有数字（包括 target）都是正整数。 解集不能包含重复的组合。   示例 1: 123456输入: candidates = [2,3,6,7], target = 7,所求解集">
+<meta property="og:description" content="在一棵无限的二叉树上，每个节点都有两个子节点，树中的节点 逐行 依次按 “之” 字形进行标记。 如下图所示，在奇数行（即，第一行、第三行、第五行……）中，按从左到右的顺序进行标记； 而偶数行（即，第二行、第四行、第六行……）中，按从右到左的顺序进行标记。  给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。 示例 1： 输入">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://chenjiecjj.github.io/Users/chenjie/Blog/themes/next/images/avator.gif">
-<meta property="og:updated_time" content="2019-05-11T07:16:35.434Z">
+<meta property="og:image" content="https://chenjiecjj.github.io/cj/2019/08/18/1104-二叉树寻路/tree.png">
+<meta property="og:image" content="https://chenjiecjj.github.io/cj/2019/08/18/1104-二叉树寻路/WechatIMG1.jpeg">
+<meta property="og:updated_time" content="2019-08-18T11:15:16.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="39.组合总和">
-<meta name="twitter:description" content="给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中的数字可以无限制重复被选取。 说明：  所有数字（包括 target）都是正整数。 解集不能包含重复的组合。   示例 1: 123456输入: candidates = [2,3,6,7], target = 7,所求解集">
-<meta name="twitter:image" content="https://chenjiecjj.github.io/Users/chenjie/Blog/themes/next/images/avator.gif">
+<meta name="twitter:title" content="1104.二叉树寻路">
+<meta name="twitter:description" content="在一棵无限的二叉树上，每个节点都有两个子节点，树中的节点 逐行 依次按 “之” 字形进行标记。 如下图所示，在奇数行（即，第一行、第三行、第五行……）中，按从左到右的顺序进行标记； 而偶数行（即，第二行、第四行、第六行……）中，按从右到左的顺序进行标记。  给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。 示例 1： 输入">
+<meta name="twitter:image" content="https://chenjiecjj.github.io/cj/2019/08/18/1104-二叉树寻路/tree.png">
 
 
 
@@ -117,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="https://chenjiecjj.github.io/2019/04/25/39-组合总和/">
+  <link rel="canonical" href="https://chenjiecjj.github.io/2019/08/18/1104-二叉树寻路/">
 
 
 
@@ -127,7 +128,7 @@
   };
 </script>
 
-  <title>39.组合总和 | cj的学习之路</title>
+  <title>1104.二叉树寻路 | cj的学习之路</title>
   
 
 
@@ -326,7 +327,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/04/25/39-组合总和/">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/18/1104-二叉树寻路/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cj">
@@ -343,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">39.组合总和
+          <h1 class="post-title" itemprop="name headline">1104.二叉树寻路
 
               
             
@@ -369,24 +370,12 @@
                 
               
 
-              <time title="Created: 2019-04-25 09:19:12" itemprop="dateCreated datePublished" datetime="2019-04-25T09:19:12+08:00">2019-04-25</time>
+              <time title="Created: 2019-08-18 18:19:05 / Modified: 19:15:16" itemprop="dateCreated datePublished" datetime="2019-08-18T18:19:05+08:00">2019-08-18</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-11 15:16:35" itemprop="dateModified" datetime="2019-05-11T15:16:35+08:00">2019-05-11</time>
               
             
           </span>
@@ -438,20 +427,20 @@
       
 
       
-        <p>给定一个<strong>无重复元素</strong>的数组 <code>candidates</code> 和一个目标数 <code>target</code> ，找出 <code>candidates</code> 中所有可以使数字和为 <code>target</code> 的组合。</p>
-<p><code>candidates</code> 中的数字可以无限制重复被选取。</p>
-<p><strong>说明：</strong></p>
-<ul>
-<li>所有数字（包括 <code>target</code>）都是正整数。</li>
-<li>解集不能包含重复的组合。 </li>
-</ul>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,6,7], target = 7,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [7],</span><br><span class="line">  [2,2,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [2,2,2,2],</span><br><span class="line">  [2,3,3],</span><br><span class="line">  [3,5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p><em>这道题的思路其实不难，就是一个dfs搜索。但是我搜索出来有元素位置不同但是是一样的情况出现，开始还想使用set再转换为vector来解决，后来太麻烦了。其实就是从改元素本身进行搜索，这样结果一定是元素的升序并且可重复。</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;&amp; candidates, int target) &#123;</span><br><span class="line">       vector&lt;vector&lt;int&gt;&gt; ans;</span><br><span class="line">       vector&lt;int&gt; tmp;</span><br><span class="line">       sort(candidates.begin(), candidates.end());</span><br><span class="line">       dfs(ans,tmp,candidates,target,0,0);</span><br><span class="line">       return ans;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; ans, vector&lt;int&gt;&amp; tmp,vector&lt;int&gt;&amp; candidates, int target, int sum,int start)</span><br><span class="line">   &#123;</span><br><span class="line">       // cout&lt;&lt;sum&lt;&lt;endl;</span><br><span class="line">       // for(int i=0;i&lt;tmp.size();i++)</span><br><span class="line">       // &#123;</span><br><span class="line">       //     cout&lt;&lt;tmp[i]&lt;&lt;&quot; &quot;;</span><br><span class="line">       // &#125;</span><br><span class="line">       // cout&lt;&lt;endl;</span><br><span class="line">       if(sum&gt;target)</span><br><span class="line">       &#123;</span><br><span class="line">           return;</span><br><span class="line">       &#125;</span><br><span class="line">       else if(sum == target)</span><br><span class="line">       &#123;</span><br><span class="line">           ans.push_back(tmp);</span><br><span class="line">           return ;</span><br><span class="line">       &#125;</span><br><span class="line">       int len = candidates.size();</span><br><span class="line">       for(int i=start;i&lt;len;++i)</span><br><span class="line">       &#123;</span><br><span class="line">           tmp.push_back(candidates[i]);</span><br><span class="line">           sum+= candidates[i];</span><br><span class="line">           dfs(ans,tmp,candidates,target,sum,i);</span><br><span class="line">           tmp.pop_back();</span><br><span class="line">           sum-=candidates[i];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/Users/chenjie/Blog/themes/next/images/avator.gif" alt></p>
+        <p>在一棵无限的二叉树上，每个节点都有两个子节点，树中的节点 逐行 依次按 “之” 字形进行标记。</p>
+<p>如下图所示，在奇数行（即，第一行、第三行、第五行……）中，按从左到右的顺序进行标记；</p>
+<p>而偶数行（即，第二行、第四行、第六行……）中，按从右到左的顺序进行标记。</p>
+<p><img src="/cj/2019/08/18/1104-二叉树寻路/tree.png" alt="img"></p>
+<p>给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。</p>
+<p>示例 1：</p>
+<p>输入：label = 14<br>输出：[1,3,4,14]<br>示例 2：</p>
+<p>输入：label = 26<br>输出：[1,2,6,10,26]</p>
+<p>提示：</p>
+<p>1 &lt;= label &lt;= 10^6</p>
+<p><em>思路：这个问题看上去不太好做，我们首先分析一下。首先我们知道每一层有2l−12l−1个节点，其中<code>l</code>表示第<code>l</code>层，每一层的起始数字是2l−12l−1，结束数字是2l−12l−1，当然这个顺序会根据奇数行和偶数行的不同出现逆向。那么对于给定数字<code>label</code>，我们一定可以知道它是第几层第几个。我们假设是<code>i</code>层<code>j</code>个，那么它的父亲节点一定是<code>i-1</code>层<code>j//2</code>个。依照这个思路，我们只需要从后向前找到每一层的节点即可。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pathInZigZagTree(<span class="keyword">int</span> label) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;re;</span><br><span class="line">        <span class="keyword">int</span> level = <span class="built_in">log</span>(label) / <span class="built_in">log</span>(<span class="number">2</span>) + <span class="number">1</span>,left=<span class="number">0</span>;<span class="comment">//正常的满二叉树的最左边的节点是2**（i-1）</span></span><br><span class="line">        <span class="keyword">int</span> index=label-(<span class="keyword">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,level<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span>(level%<span class="number">2</span>==<span class="number">0</span>)<span class="comment">//偶数行从右到左编号，所以index需要反过来</span></span><br><span class="line">            index-=(<span class="built_in">pow</span>(<span class="number">2</span>,level<span class="number">-1</span>)<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=level;j&gt;<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            left=j%<span class="number">2</span>?<span class="built_in">pow</span>(<span class="number">2</span>,j<span class="number">-1</span>):<span class="built_in">pow</span>(<span class="number">2</span>,j)<span class="number">-1</span>;</span><br><span class="line">            re.push_back(left+index);</span><br><span class="line">            index/=<span class="number">-2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(re.begin(),re.end());</span><br><span class="line">        <span class="keyword">return</span> re;</span><br></pre></td></tr></table></figure>
+<p>为了方便理解，所以特别画了一张整个过程的计算过程</p>
+<p><img src="/cj/2019/08/18/1104-二叉树寻路/WechatIMG1.jpeg" alt="WechatIMG1"></p>
 
       
     </div>
@@ -488,15 +477,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/cj/2019/07/03/天池新人实战赛o2o优惠券使用预测/" rel="next" title="天池新人实战赛o2o优惠券使用预测">
+                <i class="fa fa-chevron-left"></i> 天池新人实战赛o2o优惠券使用预测
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/cj/2019/04/26/Leetcode979/" rel="prev" title="Leetcode979">
-                Leetcode979 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
