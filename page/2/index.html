@@ -99,13 +99,13 @@
   <meta name="description" content="学习记录Blog">
 <meta name="keywords" content="Leetcode, DL, ML">
 <meta property="og:type" content="website">
-<meta property="og:title" content="cj的学习之路">
+<meta property="og:title" content="人生贵在坚持">
 <meta property="og:url" content="https://chenjiecjj.github.io/page/2/index.html">
-<meta property="og:site_name" content="cj的学习之路">
+<meta property="og:site_name" content="人生贵在坚持">
 <meta property="og:description" content="学习记录Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cj的学习之路">
+<meta name="twitter:title" content="人生贵在坚持">
 <meta name="twitter:description" content="学习记录Blog">
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>cj的学习之路</title>
+  <title>人生贵在坚持</title>
   
 
 
@@ -184,7 +184,7 @@
     <div class="custom-logo-site-title">
       <a href="/cj/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">cj的学习之路</span>
+        <span class="site-title">人生贵在坚持</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -324,6 +324,520 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/29/114-二叉树展开为链表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/05/29/114-二叉树展开为链表/" class="post-title-link" itemprop="url">114.二叉树展开为链表</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-29 15:45:18 / Modified: 15:50:10" itemprop="dateCreated datePublished" datetime="2019-05-29T15:45:18+08:00">2019-05-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给定一个二叉树，<a href="https://baike.baidu.com/item/原地算法/8010757" target="_blank" rel="noopener">原地</a>将它展开为链表。</p>
+<p>例如，给定二叉树</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   5</span><br><span class="line"> / \   \</span><br><span class="line">3   4   6</span><br></pre></td></tr></table></figure>
+<p>将其展开为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line">   \</span><br><span class="line">    3</span><br><span class="line">     \</span><br><span class="line">      4</span><br><span class="line">       \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
+<p><em>思路：这道题的思路其实很简单，就是将左边的放在右边，并且将右边的放在左边的末尾，最后左边的置为空。但是刚开始的时候，我没有想清楚递归的那两个函数放在什么地方，后面想清楚了。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">  			<span class="comment">//root最后已经变成了链式后结果</span></span><br><span class="line">        flatten(root-&gt;left);</span><br><span class="line">  			<span class="comment">//同上</span></span><br><span class="line">        flatten(root-&gt;right);</span><br><span class="line">  			<span class="comment">//将结果串联起来</span></span><br><span class="line">        TreeNode* tmp=root-&gt;right;</span><br><span class="line">        root-&gt;right = root-&gt;left;</span><br><span class="line">        root-&gt;left=<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(root-&gt;right!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            root=root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        root-&gt;right=tmp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/27/48-旋转图像/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/05/27/48-旋转图像/" class="post-title-link" itemprop="url">48.旋转图像</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-27 16:28:12 / Modified: 16:34:33" itemprop="dateCreated datePublished" datetime="2019-05-27T16:28:12+08:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给定一个 <em>n</em> × <em>n</em> 的二维矩阵表示一个图像。</p>
+<p>将图像顺时针旋转 90 度。</p>
+<p><strong>说明：</strong></p>
+<p>你必须在<strong>原地</strong>旋转图像，这意味着你需要直接修改输入的二维矩阵。<strong>请不要</strong>使用另一个矩阵来旋转图像。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">给定 matrix = </span><br><span class="line">[</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [4,5,6],</span><br><span class="line">  [7,8,9]</span><br><span class="line">],</span><br><span class="line"></span><br><span class="line">原地旋转输入矩阵，使其变为:</span><br><span class="line">[</span><br><span class="line">  [7,4,1],</span><br><span class="line">  [8,5,2],</span><br><span class="line">  [9,6,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">给定 matrix =</span><br><span class="line">[</span><br><span class="line">  [ 5, 1, 9,11],</span><br><span class="line">  [ 2, 4, 8,10],</span><br><span class="line">  [13, 3, 6, 7],</span><br><span class="line">  [15,14,12,16]</span><br><span class="line">], </span><br><span class="line"></span><br><span class="line">原地旋转输入矩阵，使其变为:</span><br><span class="line">[</span><br><span class="line">  [15,13, 2, 5],</span><br><span class="line">  [14, 3, 4, 1],</span><br><span class="line">  [12, 6, 8, 9],</span><br><span class="line">  [16, 7,10,11]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><em>思路：如果不要求原地旋转的话，还是很好做的，查找资料后发现，先左右交换，再转置就可以达到顺时针旋转90度的效果。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; m)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"*************"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m.size();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m[<span class="number">0</span>].size();j++)</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;m[i][j]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">             <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; m)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = m.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= j)&#123;</span><br><span class="line">            <span class="keyword">int</span> t = m[i];</span><br><span class="line">            m[i] = m[j];</span><br><span class="line">            m[j] = t;</span><br><span class="line">            ++i;</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix.empty())</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> row = matrix.size();</span><br><span class="line">        <span class="keyword">int</span> col = matrix[<span class="number">0</span>].size();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; ++i)&#123;</span><br><span class="line">            reverse(matrix[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        show(matrix);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col - i - <span class="number">1</span>; ++j)&#123;</span><br><span class="line">                swap(matrix[i][j], matrix[row-j<span class="number">-1</span>][col-i<span class="number">-1</span>]);</span><br><span class="line">                show(matrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">*************</span><br><span class="line"><span class="number">3</span> <span class="number">2</span> <span class="number">1</span> </span><br><span class="line"><span class="number">6</span> <span class="number">5</span> <span class="number">4</span> </span><br><span class="line"><span class="number">9</span> <span class="number">8</span> <span class="number">7</span> </span><br><span class="line">*************</span><br><span class="line"><span class="number">7</span> <span class="number">2</span> <span class="number">1</span> </span><br><span class="line"><span class="number">6</span> <span class="number">5</span> <span class="number">4</span> </span><br><span class="line"><span class="number">9</span> <span class="number">8</span> <span class="number">3</span> </span><br><span class="line">*************</span><br><span class="line"><span class="number">7</span> <span class="number">4</span> <span class="number">1</span> </span><br><span class="line"><span class="number">6</span> <span class="number">5</span> <span class="number">2</span> </span><br><span class="line"><span class="number">9</span> <span class="number">8</span> <span class="number">3</span> </span><br><span class="line">*************</span><br><span class="line"><span class="number">7</span> <span class="number">4</span> <span class="number">1</span> </span><br><span class="line"><span class="number">8</span> <span class="number">5</span> <span class="number">2</span> </span><br><span class="line"><span class="number">9</span> <span class="number">6</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/23/289-生命游戏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/05/23/289-生命游戏/" class="post-title-link" itemprop="url">289.生命游戏</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-23 17:14:00 / Modified: 17:24:11" itemprop="dateCreated datePublished" datetime="2019-05-23T17:14:00+08:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据<a href="https://baike.baidu.com/item/生命游戏/2926434?fr=aladdin" target="_blank" rel="noopener">百度百科</a>，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 <em>live</em>（1）即为活细胞， 或 <em>dead</em>（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<ol>
+<li>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；</li>
+<li>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；</li>
+<li>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；</li>
+<li>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；</li>
+</ol>
+<p>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">[</span><br><span class="line">  [0,1,0],</span><br><span class="line">  [0,0,1],</span><br><span class="line">  [1,1,1],</span><br><span class="line">  [0,0,0]</span><br><span class="line">]</span><br><span class="line">输出: </span><br><span class="line">[</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [0,1,1],</span><br><span class="line">  [0,1,0]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><em>思路：傻瓜式遍历，判断当前活细胞活着死细胞是否符合变活/变死条件，则将改状态存储在临时的board里面，最后再赋值回去</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gameOfLife</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r=board.size(), c=board[<span class="number">0</span>].size(); </span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans(r, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(c,<span class="number">0</span>));</span><br><span class="line">        <span class="comment">// cout&lt;&lt;ans.size()&lt;&lt;" "&lt;&lt;ans[0].size()&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;r;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;c;++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j];</span><br><span class="line">                    <span class="keyword">if</span>(i<span class="number">-1</span>&gt;=<span class="number">0</span> &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i<span class="number">-1</span>][j+<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=<span class="number">0</span> &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;=<span class="number">0</span> &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i][j+<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j<span class="number">-1</span>&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j&gt;=<span class="number">0</span>)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j];</span><br><span class="line">                    <span class="keyword">if</span>(i+<span class="number">1</span>&lt;r &amp;&amp; j+<span class="number">1</span>&lt;c)</span><br><span class="line">                        cnt+= board[i+<span class="number">1</span>][j+<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(board[i][j]==<span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(cnt==<span class="number">2</span> || cnt==<span class="number">3</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ans[i][j]=<span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        ans[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(cnt==<span class="number">3</span>)</span><br><span class="line">                        ans[i][j]=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        ans[i][j]=<span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">       board =ans; </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>但是，这样么哦哥循环需要进行8个if判断，耗时，因此可以将矩阵用0padding一层，这样必定不会超界。执行速度会快很多</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gameOfLife</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> m = board.size();</span><br><span class="line">	<span class="keyword">int</span> n = board[<span class="number">0</span>].size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; tmp(m + <span class="number">2</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">2</span>, <span class="number">0</span>));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp[i + <span class="number">1</span>][j + <span class="number">1</span>] = board[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m + <span class="number">1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n + <span class="number">1</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> ans = tmp[i - <span class="number">1</span>][j - <span class="number">1</span>] + tmp[i - <span class="number">1</span>][j] + tmp[i - <span class="number">1</span>][j + <span class="number">1</span>] + tmp[i][j - <span class="number">1</span>] + tmp[i][j + <span class="number">1</span>] + tmp[i + <span class="number">1</span>][j] + tmp[i + <span class="number">1</span>][j - <span class="number">1</span>] + tmp[i + <span class="number">1</span>][j + <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span> (tmp[i][j] == <span class="number">0</span> &amp;&amp; ans == <span class="number">3</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				board[i - <span class="number">1</span>][j - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (tmp[i][j] == <span class="number">1</span> &amp;&amp; (ans &lt; <span class="number">2</span> || ans &gt; <span class="number">3</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				board[i - <span class="number">1</span>][j - <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/22/131-分割回文串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,7 +847,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -511,7 +1025,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -671,7 +1185,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -846,7 +1360,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -1013,7 +1527,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -1165,7 +1679,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -1333,7 +1847,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
+      <meta itemprop="name" content="人生贵在坚持">
     </span>
 
     
@@ -1520,390 +2034,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/04/26/Leetcode979/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/04/26/Leetcode979/" class="post-title-link" itemprop="url">Leetcode979</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-26 13:46:07" itemprop="dateCreated datePublished" datetime="2019-04-26T13:46:07+08:00">2019-04-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-11 15:24:50" itemprop="dateModified" datetime="2019-05-11T15:24:50+08:00">2019-05-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="979-在二叉树中分配硬币"><a href="#979-在二叉树中分配硬币" class="headerlink" title="979. 在二叉树中分配硬币"></a><a href="https://leetcode-cn.com/problems/distribute-coins-in-binary-tree/" target="_blank" rel="noopener">979. 在二叉树中分配硬币</a></h4><p>给定一个有 <code>N</code> 个结点的二叉树的根结点 <code>root</code>，树中的每个结点上都对应有 <code>node.val</code> 枚硬币，并且总共有 <code>N</code> 枚硬币。</p>
-<p>在一次移动中，我们可以选择两个相邻的结点，然后将一枚硬币从其中一个结点移动到另一个结点。(移动可以是从父结点到子结点，或者从子结点移动到父结点。)。</p>
-<p>返回使每个结点上只有一枚硬币所需的移动次数。</p>
-<p><strong>示例 1：</strong></p>
-<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree1.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[3,0,0]</span><br><span class="line">输出：2</span><br><span class="line">解释：从树的根结点开始，我们将一枚硬币移到它的左子结点上，一枚硬币移到它的右子结点上。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2：</strong></p>
-<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree2.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：[0,3,0]</span><br><span class="line">输出：3</span><br><span class="line">解释：从根结点的左子结点开始，我们将两枚硬币移到根结点上 [移动两次]。然后，我们把一枚硬币从根结点移到右子结点上。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 3：</strong></p>
-<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree3.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,0,2]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure>
-<p><strong>示例 4：</strong></p>
-<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree4.png" alt="img"></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,0,0,null,3]</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
-<ol>
-<li><code>1&lt;= N &lt;= 100</code></li>
-<li><code>0 &lt;= node.val &lt;= N</code></li>
-</ol>
-<h5 id="思路：这个我是真的没有，知道大概要用递归，但是吧这个计算次数的递归式子我是真的没有想出来，因为我不知道要怎么来想左子节点和右子节点分配金币合适。但是可以进行逆向思考，因为从倒数第一步到最后一步的状态几乎是可以肯定的，这样分配的策略才有正确分配到最后的可能性。最后的移动次数应该是-左子树的移动次数-右子树的移动次数-根节点的金币数-1。而且子节点给父节点移动次数为证，否则为负。"><a href="#思路：这个我是真的没有，知道大概要用递归，但是吧这个计算次数的递归式子我是真的没有想出来，因为我不知道要怎么来想左子节点和右子节点分配金币合适。但是可以进行逆向思考，因为从倒数第一步到最后一步的状态几乎是可以肯定的，这样分配的策略才有正确分配到最后的可能性。最后的移动次数应该是-左子树的移动次数-右子树的移动次数-根节点的金币数-1。而且子节点给父节点移动次数为证，否则为负。" class="headerlink" title="思路：这个我是真的没有，知道大概要用递归，但是吧这个计算次数的递归式子我是真的没有想出来，因为我不知道要怎么来想左子节点和右子节点分配金币合适。但是可以进行逆向思考，因为从倒数第一步到最后一步的状态几乎是可以肯定的，这样分配的策略才有正确分配到最后的可能性。最后的移动次数应该是|左子树的移动次数|+|右子树的移动次数|+根节点的金币数-1。而且子节点给父节点移动次数为证，否则为负。"></a>思路：<em>这个我是真的没有，知道大概要用递归，但是吧这个计算次数的递归式子我是真的没有想出来，因为我不知道要怎么来想左子节点和右子节点分配金币合适。但是可以进行逆向思考，因为从倒数第一步到最后一步的状态几乎是可以肯定的，这样分配的策略才有正确分配到最后的可能性。最后的移动次数应该是|左子树的移动次数|+|右子树的移动次数|+根节点的金币数-1。而且子节点给父节点移动次数为证，否则为负。</em></h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">distributeCoins</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = dfs(root-&gt;left);</span><br><span class="line">        <span class="keyword">int</span> right = dfs(root-&gt;right);</span><br><span class="line">        ans+= <span class="built_in">abs</span>(left)+<span class="built_in">abs</span>(right);<span class="comment">//*注意一下</span></span><br><span class="line">        <span class="keyword">return</span> left+right+root-&gt;val<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/04/25/39-组合总和/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cj的学习之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/04/25/39-组合总和/" class="post-title-link" itemprop="url">39.组合总和</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-25 09:19:12" itemprop="dateCreated datePublished" datetime="2019-04-25T09:19:12+08:00">2019-04-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-11 15:16:35" itemprop="dateModified" datetime="2019-05-11T15:16:35+08:00">2019-05-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>给定一个<strong>无重复元素</strong>的数组 <code>candidates</code> 和一个目标数 <code>target</code> ，找出 <code>candidates</code> 中所有可以使数字和为 <code>target</code> 的组合。</p>
-<p><code>candidates</code> 中的数字可以无限制重复被选取。</p>
-<p><strong>说明：</strong></p>
-<ul>
-<li>所有数字（包括 <code>target</code>）都是正整数。</li>
-<li>解集不能包含重复的组合。 </li>
-</ul>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,6,7], target = 7,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [7],</span><br><span class="line">  [2,2,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: candidates = [2,3,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [2,2,2,2],</span><br><span class="line">  [2,3,3],</span><br><span class="line">  [3,5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p><em>这道题的思路其实不难，就是一个dfs搜索。但是我搜索出来有元素位置不同但是是一样的情况出现，开始还想使用set再转换为vector来解决，后来太麻烦了。其实就是从改元素本身进行搜索，这样结果一定是元素的升序并且可重复。</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;&amp; candidates, int target) &#123;</span><br><span class="line">       vector&lt;vector&lt;int&gt;&gt; ans;</span><br><span class="line">       vector&lt;int&gt; tmp;</span><br><span class="line">       sort(candidates.begin(), candidates.end());</span><br><span class="line">       dfs(ans,tmp,candidates,target,0,0);</span><br><span class="line">       return ans;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   void dfs(vector&lt;vector&lt;int&gt;&gt;&amp; ans, vector&lt;int&gt;&amp; tmp,vector&lt;int&gt;&amp; candidates, int target, int sum,int start)</span><br><span class="line">   &#123;</span><br><span class="line">       // cout&lt;&lt;sum&lt;&lt;endl;</span><br><span class="line">       // for(int i=0;i&lt;tmp.size();i++)</span><br><span class="line">       // &#123;</span><br><span class="line">       //     cout&lt;&lt;tmp[i]&lt;&lt;&quot; &quot;;</span><br><span class="line">       // &#125;</span><br><span class="line">       // cout&lt;&lt;endl;</span><br><span class="line">       if(sum&gt;target)</span><br><span class="line">       &#123;</span><br><span class="line">           return;</span><br><span class="line">       &#125;</span><br><span class="line">       else if(sum == target)</span><br><span class="line">       &#123;</span><br><span class="line">           ans.push_back(tmp);</span><br><span class="line">           return ;</span><br><span class="line">       &#125;</span><br><span class="line">       int len = candidates.size();</span><br><span class="line">       for(int i=start;i&lt;len;++i)</span><br><span class="line">       &#123;</span><br><span class="line">           tmp.push_back(candidates[i]);</span><br><span class="line">           sum+= candidates[i];</span><br><span class="line">           dfs(ans,tmp,candidates,target,sum,i);</span><br><span class="line">           tmp.pop_back();</span><br><span class="line">           sum-=candidates[i];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/Users/chenjie/Blog/themes/next/images/avator.gif" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/cj/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/cj/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/cj/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/cj/">1</a><span class="page-number current">2</span><a class="page-number" href="/cj/page/3/">3</a><a class="extend next" rel="next" href="/cj/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1947,7 +2082,7 @@
                 
                   <a href="/cj/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

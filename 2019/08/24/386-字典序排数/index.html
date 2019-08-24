@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="给定一个二叉树，原地将它展开为链表。 例如，给定二叉树 12345    1   / \  2   5 / \   \3   4   6 将其展开为： 12345678910111 \  2   \    3     \      4       \        5         \          6 思路：这道题的思路其实很简单，就是将左边的放在右边，并且将右边的放在左边的末尾，最后左边">
+  <meta name="description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
 <meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="114.二叉树展开为链表">
-<meta property="og:url" content="https://chenjiecjj.github.io/2019/05/29/114-二叉树展开为链表/index.html">
+<meta property="og:title" content="386.字典序排数">
+<meta property="og:url" content="https://chenjiecjj.github.io/2019/08/24/386-字典序排数/index.html">
 <meta property="og:site_name" content="人生贵在坚持">
-<meta property="og:description" content="给定一个二叉树，原地将它展开为链表。 例如，给定二叉树 12345    1   / \  2   5 / \   \3   4   6 将其展开为： 12345678910111 \  2   \    3     \      4       \        5         \          6 思路：这道题的思路其实很简单，就是将左边的放在右边，并且将右边的放在左边的末尾，最后左边">
+<meta property="og:description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-29T07:50:10.848Z">
+<meta property="og:updated_time" content="2019-08-24T07:24:53.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="114.二叉树展开为链表">
-<meta name="twitter:description" content="给定一个二叉树，原地将它展开为链表。 例如，给定二叉树 12345    1   / \  2   5 / \   \3   4   6 将其展开为： 12345678910111 \  2   \    3     \      4       \        5         \          6 思路：这道题的思路其实很简单，就是将左边的放在右边，并且将右边的放在左边的末尾，最后左边">
+<meta name="twitter:title" content="386.字典序排数">
+<meta name="twitter:description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://chenjiecjj.github.io/2019/05/29/114-二叉树展开为链表/">
+  <link rel="canonical" href="https://chenjiecjj.github.io/2019/08/24/386-字典序排数/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>114.二叉树展开为链表 | 人生贵在坚持</title>
+  <title>386.字典序排数 | 人生贵在坚持</title>
   
 
 
@@ -324,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/29/114-二叉树展开为链表/">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/24/386-字典序排数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cj">
@@ -341,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">114.二叉树展开为链表
+          <h1 class="post-title" itemprop="name headline">386.字典序排数
 
               
             
@@ -367,7 +367,7 @@
                 
               
 
-              <time title="Created: 2019-05-29 15:45:18 / Modified: 15:50:10" itemprop="dateCreated datePublished" datetime="2019-05-29T15:45:18+08:00">2019-05-29</time>
+              <time title="Created: 2019-08-24 14:53:07 / Modified: 15:24:53" itemprop="dateCreated datePublished" datetime="2019-08-24T14:53:07+08:00">2019-08-24</time>
             
 
             
@@ -424,13 +424,15 @@
       
 
       
-        <p>给定一个二叉树，<a href="https://baike.baidu.com/item/原地算法/8010757" target="_blank" rel="noopener">原地</a>将它展开为链表。</p>
-<p>例如，给定二叉树</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   5</span><br><span class="line"> / \   \</span><br><span class="line">3   4   6</span><br></pre></td></tr></table></figure>
-<p>将其展开为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line">   \</span><br><span class="line">    3</span><br><span class="line">     \</span><br><span class="line">      4</span><br><span class="line">       \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
-<p><em>思路：这道题的思路其实很简单，就是将左边的放在右边，并且将右边的放在左边的末尾，最后左边的置为空。但是刚开始的时候，我没有想清楚递归的那两个函数放在什么地方，后面想清楚了。</em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">nullptr</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">  			<span class="comment">//root最后已经变成了链式后结果</span></span><br><span class="line">        flatten(root-&gt;left);</span><br><span class="line">  			<span class="comment">//同上</span></span><br><span class="line">        flatten(root-&gt;right);</span><br><span class="line">  			<span class="comment">//将结果串联起来</span></span><br><span class="line">        TreeNode* tmp=root-&gt;right;</span><br><span class="line">        root-&gt;right = root-&gt;left;</span><br><span class="line">        root-&gt;left=<span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(root-&gt;right!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            root=root-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">        root-&gt;right=tmp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <p>给定一个整数 n, 返回从 1 到 n 的字典顺序。</p>
+<p>例如，</p>
+<p>给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。</p>
+<p>请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。</p>
+<p><em>思路：其实想想感觉很简单但是觉得无法下手。</em></p>
+<p>例子：n=13</p>
+<p>将问题分解为i*10+（0…9）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lexicalOrder(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ans.push_back(tmp);</span><br><span class="line">            <span class="keyword">if</span>(tmp*<span class="number">10</span>&lt;=n)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp *= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(tmp&gt;=n)<span class="comment">//控制放在ans中的结果不会超过最大值n，如果超过了则，tmp除以10</span></span><br><span class="line">                    tmp/=<span class="number">10</span>;</span><br><span class="line">                tmp+=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(tmp%<span class="number">10</span> == <span class="number">0</span>)<span class="comment">//当从2x到30时，可以回到最小的3开头的数字</span></span><br><span class="line">                    tmp /= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lexicalOrder(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;<span class="comment">//使用DFS进行过程模拟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i) &#123;</span><br><span class="line">            helper(i, n, res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="keyword">int</span> cur, <span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; n) <span class="keyword">return</span>;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur * <span class="number">10</span> + i &lt;= n) &#123;</span><br><span class="line">                helper(cur * <span class="number">10</span> + i, n, res);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -467,8 +469,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/cj/2019/05/27/48-旋转图像/" rel="next" title="48.旋转图像">
-                <i class="fa fa-chevron-left"></i> 48.旋转图像
+              <a href="/cj/2019/08/24/96-不同的二叉搜索树/" rel="next" title="96.不同的二叉搜索树">
+                <i class="fa fa-chevron-left"></i> 96.不同的二叉搜索树
               </a>
             
           </div>
@@ -477,8 +479,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/" rel="prev" title="106.从中序与后序遍历序列构造二叉树">
-                106.从中序与后序遍历序列构造二叉树 <i class="fa fa-chevron-right"></i>
+              <a href="/cj/2019/08/24/120-三角形最小路径和/" rel="prev" title="120.三角形最小路径和">
+                120.三角形最小路径和 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
