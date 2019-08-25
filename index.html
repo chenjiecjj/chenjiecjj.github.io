@@ -324,6 +324,349 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/25/208-实现Trie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/08/25/208-实现Trie/" class="post-title-link" itemprop="url">208.实现Trie</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-25 20:25:38 / Modified: 21:11:06" itemprop="dateCreated datePublished" datetime="2019-08-25T20:25:38+08:00">2019-08-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现一个 Trie (前缀树)，包含 insert, search, 和 startsWith 这三个操作。</p>
+<p>示例:</p>
+<p>Trie trie = new Trie();</p>
+<p>trie.insert(“apple”);<br>trie.search(“apple”);   // 返回 true<br>trie.search(“app”);     // 返回 false<br>trie.startsWith(“app”); // 返回 true<br>trie.insert(“app”);<br>trie.search(“app”);     // 返回 true<br>说明:</p>
+<p>你可以假设所有的输入都是由小写字母 a-z 构成的。<br>保证所有输入均为非空字符串。</p>
+<p><em>思路：trie树就是前缀树，可以减少字符遍历查找的时间。道理我都懂，可是实现的时候并不知道怎样实现才好。糟心，慢慢学习，一步一步来吧！</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">个C++实现的版本：</span><br><span class="line"></span><br><span class="line">C++</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">26</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">bool</span> is_str; <span class="comment">// 标识当前结点是否为一个完整的字符串</span></span><br><span class="line">    Trie *next[MAXN]; <span class="comment">// 下一个结点的指针数组</span></span><br><span class="line">    Trie() &#123;</span><br><span class="line">        is_str = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memset</span>(next,<span class="number">0</span>,<span class="keyword">sizeof</span>(next));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Inserts a word into the trie. */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="built_in">string</span> word)</span> </span>&#123;</span><br><span class="line">        Trie *cur = <span class="keyword">this</span>; <span class="comment">// cur初始化为根结点指针</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> w : word)&#123; <span class="comment">// 遍历word中的每一个字符</span></span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;next[w-<span class="string">'a'</span>]==<span class="literal">NULL</span>)&#123; <span class="comment">// 下一个结点不存在，新增一个结点</span></span><br><span class="line">                Trie *new_node = <span class="keyword">new</span> Trie();</span><br><span class="line">                cur-&gt;next[w-<span class="string">'a'</span>] = new_node;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;next[w-<span class="string">'a'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;is_str = <span class="literal">true</span>; <span class="comment">// 当前结点已经是一个完整的字符串了</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns if the word is in the trie. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="built_in">string</span> word)</span> </span>&#123;</span><br><span class="line">        Trie *cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> w : word)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">NULL</span>)</span><br><span class="line">                cur = cur-&gt;next[w-<span class="string">'a'</span>]; <span class="comment">// 更新cur指针的指向，使其指向下一个结点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (cur!=<span class="literal">NULL</span>&amp;&amp;cur-&gt;is_str); <span class="comment">// cur指针不为空且cur指针指向的结点为一个完整的字符串，则成功找到字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns if there is any word in the trie that starts with the given prefix. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">startsWith</span><span class="params">(<span class="built_in">string</span> prefix)</span> </span>&#123;</span><br><span class="line">         Trie *cur = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> w : prefix)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur!=<span class="literal">NULL</span>)</span><br><span class="line">                cur = cur-&gt;next[w-<span class="string">'a'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (cur!=<span class="literal">NULL</span>); <span class="comment">// 相比search(),这里只需判断cur指针是否为空就行了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Trie* trie = <span class="keyword">new</span> Trie();</span><br><span class="line">    trie-&gt;insert(<span class="string">"apple"</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; trie-&gt;search(<span class="string">"apple"</span>);   <span class="comment">// 返回 true</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; trie-&gt;search(<span class="string">"app"</span>);     <span class="comment">// 返回 false</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; trie-&gt;startsWith(<span class="string">"app"</span>);</span><br><span class="line">    trie-&gt;insert(<span class="string">"app"</span>);   </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; trie-&gt;search(<span class="string">"app"</span>);     <span class="comment">// 返回 true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：mxsyxin</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/implement-trie-prefix-tree/solution/cshi-xian-qian-zhui-shu-by-mxsyxin/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+<h5 id="trie树的结构存储。"><a href="#trie树的结构存储。" class="headerlink" title="trie树的结构存储。"></a>trie树的结构存储。</h5><p>Trie，又称单词查找树、前缀树，是一种多叉树结构。如下图所示：<br>上图是一棵Trie树，表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in”, “inn”} 。 </p>
+<p><img src="/cj/2019/08/25/208-实现Trie/20150815171359680.png" alt="img"></p>
+<p>与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。</p>
+<ol start="2">
+<li>trie树性质：<br>1.根节点不包含字符，除根节点外的每一个节点都只包含一个字符。<br>2.从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。<br>3.每个节点的所有子节点包含的字符都不相同。</li>
+</ol>
+<p><img src="/cj/2019/08/25/208-实现Trie/image-20190825210927274.png" alt="image-20190825210927274"></p>
+<p>大概整个构建过程就是这样吧。c++还需要努力学学啊，感觉只学习了一个皮毛。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/25/105-从前序与中序遍历序列构造二叉树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/08/25/105-从前序与中序遍历序列构造二叉树/" class="post-title-link" itemprop="url">105.从前序与中序遍历序列构造二叉树</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-25 18:23:57 / Modified: 18:31:43" itemprop="dateCreated datePublished" datetime="2019-08-25T18:23:57+08:00">2019-08-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据一棵树的前序遍历与中序遍历构造二叉树。</p>
+<p>注意:<br>你可以假设树中没有重复的元素。</p>
+<p>例如，给出</p>
+<p>前序遍历 preorder = [3,9,20,15,7]<br>中序遍历 inorder = [9,3,15,20,7]<br>返回如下的二叉树：</p>
+<pre><code>3
+</code></pre><p>   / \<br>  9  20<br>    /  \<br>   15   7</p>
+<p><em>思路：由先序和中序构成的二叉树是唯一的。整个过程是清晰的。但是在递归的时候开始还想着要构建序列的副本输入，后面发现不需要，只需要多四个位置说明序列的子序列段。再使用辅助函数帮助递归就可以了。<strong>但是需要注意在递归的时候的角标。</strong>差点没有注意弄成大错。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> helper(preorder,<span class="number">0</span>,preorder.size()<span class="number">-1</span>,inorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function">TreeNode* <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(left&gt;right || l&gt;r)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">       TreeNode* ans=<span class="keyword">new</span> TreeNode(preorder[left]);</span><br><span class="line">       <span class="keyword">int</span> root = preorder[left];</span><br><span class="line">       <span class="keyword">int</span> mid = r;</span><br><span class="line">       <span class="comment">//在inorder中寻找root的位置</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=l ; i&lt;=r; ++i)</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">if</span>(inorder[i]==root)</span><br><span class="line">           &#123;</span><br><span class="line">               mid = i;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           &#125;</span><br><span class="line">            </span><br><span class="line">       &#125;</span><br><span class="line">     <span class="comment">//需要注意helper中的递归节点的位置left+mid-l和left+mid-l+1。</span></span><br><span class="line">       ans-&gt;left = helper(preorder, left+<span class="number">1</span>, left+mid-l,inorder, l,mid<span class="number">-1</span>);</span><br><span class="line">       ans-&gt;right = helper(preorder,left+mid-l+<span class="number">1</span>,right, inorder,mid+<span class="number">1</span>,r);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/24/120-三角形最小路径和/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1718,352 +2061,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/06/20/148-排序链表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/06/20/148-排序链表/" class="post-title-link" itemprop="url">148.排序链表</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-20 19:44:42" itemprop="dateCreated datePublished" datetime="2019-06-20T19:44:42+08:00">2019-06-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-07-01 15:15:06" itemprop="dateModified" datetime="2019-07-01T15:15:06+08:00">2019-07-01</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
-<p>示例 1:</p>
-<p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4<br>示例 2:</p>
-<p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</p>
-<p><em>不知道为甚么，我对归并排序一点都不敏感</em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mergeSort(head);</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="function">ListNode* <span class="title">mergeSort</span><span class="params">(ListNode* node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node || !node-&gt;next) <span class="keyword">return</span> node;</span><br><span class="line">        <span class="comment">//快慢指针，找到中点</span></span><br><span class="line">        ListNode* fast = node;</span><br><span class="line">        ListNode* slow = node;</span><br><span class="line">        ListNode* breakN = node;</span><br><span class="line">        <span class="keyword">while</span> (fast &amp;&amp; fast-&gt;next) &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            breakN = slow;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        breakN-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode *l1 = mergeSort(node);</span><br><span class="line">        ListNode *l2 = mergeSort(slow);</span><br><span class="line">        <span class="keyword">return</span> merge(l1, l2);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">ListNode* <span class="title">merge</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//递归到底的情况</span></span><br><span class="line">        <span class="keyword">if</span> (l1 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span> (l2 == <span class="literal">nullptr</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        <span class="comment">//分情况递归实现</span></span><br><span class="line">        <span class="keyword">if</span> (l1-&gt;val &lt;= l2-&gt;val) &#123;</span><br><span class="line">            l1-&gt;next = merge(l1-&gt;next, l2);</span><br><span class="line">            <span class="keyword">return</span> l1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l2-&gt;next = merge(l2-&gt;next, l1);</span><br><span class="line">            <span class="keyword">return</span> l2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/06/01/106-从中序与后序遍历序列构造二叉树/" class="post-title-link" itemprop="url">106.从中序与后序遍历序列构造二叉树</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-01 14:41:49 / Modified: 14:47:45" itemprop="dateCreated datePublished" datetime="2019-06-01T14:41:49+08:00">2019-06-01</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>根据一棵树的中序遍历与后序遍历构造二叉树。</p>
-<p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p>
-<p>例如，给出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">中序遍历 inorder = [9,3,15,20,7]</span><br><span class="line">后序遍历 postorder = [9,15,7,20,3]</span><br></pre></td></tr></table></figure>
-<p>返回如下的二叉树：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
-<p><em>思路：其实这个就是很好想啊，按照流程来就好了，但是细节需要注意啊</em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(inorder.size()==<span class="number">0</span>||postorder.size()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">return</span> helper(inorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>,postorder,<span class="number">0</span>,inorder.size()<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">TreeNode* <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder,<span class="keyword">int</span> s1,<span class="keyword">int</span> e1,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder,<span class="keyword">int</span> s2,<span class="keyword">int</span> e2)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      <span class="comment">//递归终止条件，左右子树没有都为空</span></span><br><span class="line">       <span class="keyword">if</span>(s1&gt;e1 || s2&gt;e2)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> val = postorder[e2];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=s1;i&lt;=e1;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(inorder[i]==val)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// cout&lt;&lt;"----------";</span></span><br><span class="line">      <span class="comment">//左子树长度tmp-s1，后续便利的索引为s2+tmp-s1-1</span></span><br><span class="line">        root-&gt;left = helper(inorder,s1, tmp<span class="number">-1</span>,postorder,s2,s2+tmp-s1<span class="number">-1</span>);</span><br><span class="line">      <span class="comment">//右子树的长度为e1-tmp，因此后序遍历的开始索引为e2-（e1-tmp）</span></span><br><span class="line">        root-&gt;right = helper(inorder,tmp+<span class="number">1</span>, e1,postorder,e2-e1+tmp,e2<span class="number">-1</span>);</span><br><span class="line">      <span class="comment">//注意索引的开始和结束的具体位置和递归结束的条件，小心测试，一般都不难</span></span><br><span class="line">        <span class="comment">// cout&lt;&lt;"**************";</span></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2112,7 +2109,7 @@
                 
                   <a href="/cj/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
