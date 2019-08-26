@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
+  <meta name="description" content="给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。 示例 1: 输入: [1,3,4,2,2]输出: 2示例 2: 输入: [3,1,3,4,2]输出: 3说明： 不能更改原数组（假设数组是只读的）。只能使用额外的 O(1) 的空间。时间复杂度小于 O(n2) 。数组中只有一个重">
 <meta name="keywords" content="Leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="386.字典序排数">
-<meta property="og:url" content="https://chenjiecjj.github.io/2019/08/24/386-字典序排数/index.html">
+<meta property="og:title" content="287.寻找重复数">
+<meta property="og:url" content="https://chenjiecjj.github.io/2019/08/26/287-寻找重复数/index.html">
 <meta property="og:site_name" content="人生贵在坚持">
-<meta property="og:description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
+<meta property="og:description" content="给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。 示例 1: 输入: [1,3,4,2,2]输出: 2示例 2: 输入: [3,1,3,4,2]输出: 3说明： 不能更改原数组（假设数组是只读的）。只能使用额外的 O(1) 的空间。时间复杂度小于 O(n2) 。数组中只有一个重">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-24T07:24:53.360Z">
+<meta property="og:updated_time" content="2019-08-26T09:21:47.485Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="386.字典序排数">
-<meta name="twitter:description" content="给定一个整数 n, 返回从 1 到 n 的字典顺序。 例如， 给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。 请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。 思路：其实想想感觉很简单但是觉得无法下手。 例子：n=13 将问题分解为i*10+（0…9） 1234567891011121314151617181">
+<meta name="twitter:title" content="287.寻找重复数">
+<meta name="twitter:description" content="给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。 示例 1: 输入: [1,3,4,2,2]输出: 2示例 2: 输入: [3,1,3,4,2]输出: 3说明： 不能更改原数组（假设数组是只读的）。只能使用额外的 O(1) 的空间。时间复杂度小于 O(n2) 。数组中只有一个重">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://chenjiecjj.github.io/2019/08/24/386-字典序排数/">
+  <link rel="canonical" href="https://chenjiecjj.github.io/2019/08/26/287-寻找重复数/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>386.字典序排数 | 人生贵在坚持</title>
+  <title>287.寻找重复数 | 人生贵在坚持</title>
   
 
 
@@ -324,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/24/386-字典序排数/">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/26/287-寻找重复数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cj">
@@ -341,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">386.字典序排数
+          <h1 class="post-title" itemprop="name headline">287.寻找重复数
 
               
             
@@ -367,7 +367,7 @@
                 
               
 
-              <time title="Created: 2019-08-24 14:53:07 / Modified: 15:24:53" itemprop="dateCreated datePublished" datetime="2019-08-24T14:53:07+08:00">2019-08-24</time>
+              <time title="Created: 2019-08-26 11:28:36 / Modified: 17:21:47" itemprop="dateCreated datePublished" datetime="2019-08-26T11:28:36+08:00">2019-08-26</time>
             
 
             
@@ -424,15 +424,17 @@
       
 
       
-        <p>给定一个整数 n, 返回从 1 到 n 的字典顺序。</p>
-<p>例如，</p>
-<p>给定 n =1 3，返回 [1,10,11,12,13,2,3,4,5,6,7,8,9] 。</p>
-<p>请尽可能的优化算法的时间复杂度和空间复杂度。 输入的数据 n 小于等于 5,000,000。</p>
-<p><em>思路：其实想想感觉很简单但是觉得无法下手。</em></p>
-<p>例子：n=13</p>
-<p>将问题分解为i*10+（0…9）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lexicalOrder(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            ans.push_back(tmp);</span><br><span class="line">            <span class="keyword">if</span>(tmp*<span class="number">10</span>&lt;=n)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp *= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(tmp&gt;=n)<span class="comment">//控制放在ans中的结果不会超过最大值n，如果超过了则，tmp除以10</span></span><br><span class="line">                    tmp/=<span class="number">10</span>;</span><br><span class="line">                tmp+=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span>(tmp%<span class="number">10</span> == <span class="number">0</span>)<span class="comment">//当从2x到30时，可以回到最小的3开头的数字</span></span><br><span class="line">                    tmp /= <span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lexicalOrder(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;<span class="comment">//使用DFS进行过程模拟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i) &#123;</span><br><span class="line">            helper(i, n, res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="keyword">int</span> cur, <span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; n) <span class="keyword">return</span>;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">9</span>; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur * <span class="number">10</span> + i &lt;= n) &#123;</span><br><span class="line">                helper(cur * <span class="number">10</span> + i, n, res);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <p>给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。</p>
+<p>示例 1:</p>
+<p>输入: [1,3,4,2,2]<br>输出: 2<br>示例 2:</p>
+<p>输入: [3,1,3,4,2]<br>输出: 3<br>说明：</p>
+<p>不能更改原数组（假设数组是只读的）。<br>只能使用额外的 O(1) 的空间。<br>时间复杂度小于 O(n2) 。<br>数组中只有一个重复的数字，但它可能不止重复出现一次。</p>
+<p><em>思路：最开始的时候第一个想到的方法就是hash，但是不满足空间复杂度为O(n)。然后又想到使用排序，再根据二分搜索。但是这种时间复杂度也不小。后面才知道这是一张龟兔赛跑问题。</em></p>
+<p>最近写leetcode 287时，接触到了“龟兔赛跑算法”，搜索了很多文章，终于透彻地理解，现在用最通俗易懂的方法记录一下：<br>判断是否有环的关键思想是：定义两个指针，指针都在开始，一个指针走得快叫fast指针，一个走得慢叫slow指针，fast和slow一直走，在某个时刻，如果fast可以遇到slow，则存在环。<br>上面的思想很好理解，通俗来说，假如两个人比赛跑步，在一个400米的环跑道上，跑的快的一定会再遇到跑的慢的，跑的快的同学跑的路程比慢的同学多整数多个圈，可能多400，800，1200，……。然而如果没有环，则跑得快的跑到终点也不会碰到跑的慢的。</p>
+<p>对于速度来说，检测环是否存在，fast&gt;slow即可，一般都用 fast = 2slow，即fast一次走两步，slow走一步. </p>
+<p>假设fast的速度为slow的2倍，如果fast走过了整个链表，没有遇到slow，则没有环<br>否则，有环，假设fast和slow在环的M相遇：<br>则相遇时：(n表示环的长度，即理解为周长)<br>1&gt;slow走过的路程为：sl = |SO| + |OM| + an,(a=1,2,3,4,….)<br>2&gt;fast走过的路程为：sf =|SO| + |OM| + bn (b=1,2,3,4,..)<br>(其中sf=2sl,b&gt;n,因为速度快2倍)<br>3&gt;用2式减1式，sf-sl = sl = (b-a)*n,即slow或fast相遇时,两者走的总路程是环长度的整数倍。</p>
+<p>利用第三点，我们可以求切点（环入点）<br>切入点是 s走m步到的o点，我们定义一个指针指向s,记为s1。<br>接着求出fast和slow相遇的M点，用一个指针指向M，记为s2.<br>两个指针同时走。当走到m步时，s1走过s1+m，即指向o。而s2所指向的是sl+m,有上面第三点可知，sl = (b-a)*n，为环的整数倍，所以sl+m也指向o点，即：相遇点走到环入点的距离=起始点走到换入点的距离，表示为|SO| = |MO|.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// Find the intersection point of the two runners.</span></span><br><span class="line">       <span class="keyword">int</span> slow = nums[<span class="number">0</span>];</span><br><span class="line">       <span class="keyword">int</span> fast = nums[<span class="number">0</span>];</span><br><span class="line">       <span class="keyword">do</span> &#123;</span><br><span class="line">           slow = nums[slow];<span class="comment">//走一步</span></span><br><span class="line">           fast = nums[nums[fast]];<span class="comment">//走两步</span></span><br><span class="line">       &#125; <span class="keyword">while</span> (slow != fast);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Find the "entrance" to the cycle.</span></span><br><span class="line">       <span class="keyword">int</span> ptr1 = nums[<span class="number">0</span>];</span><br><span class="line">       <span class="keyword">int</span> ptr2 = slow;</span><br><span class="line">       <span class="keyword">while</span> (ptr1 != ptr2) &#123;</span><br><span class="line">           ptr1 = nums[ptr1];</span><br><span class="line">           ptr2 = nums[ptr2];</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> ptr1;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -469,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/cj/2019/08/24/96-不同的二叉搜索树/" rel="next" title="96.不同的二叉搜索树">
-                <i class="fa fa-chevron-left"></i> 96.不同的二叉搜索树
+              <a href="/cj/2019/08/25/208-实现Trie/" rel="next" title="208.实现Trie">
+                <i class="fa fa-chevron-left"></i> 208.实现Trie
               </a>
             
           </div>
@@ -478,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/cj/2019/08/24/120-三角形最小路径和/" rel="prev" title="120.三角形最小路径和">
-                120.三角形最小路径和 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
