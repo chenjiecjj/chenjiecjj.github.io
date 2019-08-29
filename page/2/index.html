@@ -324,6 +324,742 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/21/1161-最大层内元素和/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/08/21/1161-最大层内元素和/" class="post-title-link" itemprop="url">1161.最大层内元素和</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-21 11:30:35 / Modified: 14:28:32" itemprop="dateCreated datePublished" datetime="2019-08-21T11:30:35+08:00">2019-08-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给你一个二叉树的根节点 root。设根节点位于二叉树的第 1 层，而根节点的子节点位于第 2 层，依此类推。</p>
+<p>请你找出层内元素之和 最大 的那几层（可能只有一层）的层号，并返回其中 最小 的那个。</p>
+<p>示例：</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/08/17/capture.jpeg" alt="img"></p>
+<p>输入：[1,7,0,7,-8,null,null]<br>输出：2<br>解释：<br>第 1 层各元素之和为 1，<br>第 2 层各元素之和为 7 + 0 = 7，<br>第 3 层各元素之和为 7 + -8 = -1，<br>所以我们返回第 2 层的层号，它的层内元素之和最大。</p>
+<p>提示：</p>
+<p>树中的节点数介于 1 和 10^4 之间<br>-10^5 &lt;= node.val &lt;= 10^5</p>
+<p><em>思路：主要就是层次便利，记录最大值是第几层的数据和每层数据的总和。但是我忘记了<strong>在队列中节点的个数就是当前层节点的数目</strong>。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxLevelSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">        q.push(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            step++;</span><br><span class="line">            <span class="keyword">int</span> size = q.size();</span><br><span class="line">            <span class="keyword">int</span> cur=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;++i)</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* tmp = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                cur+=tmp-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;left)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(tmp-&gt;left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(tmp-&gt;right)</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(tmp-&gt;right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cur&gt;sum)</span><br><span class="line">            &#123;</span><br><span class="line">                sum=cur;</span><br><span class="line">                ans=step;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/20/959-由斜杠划分区域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/08/20/959-由斜杠划分区域/" class="post-title-link" itemprop="url">959.由斜杠划分区域</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-20 09:53:15" itemprop="dateCreated datePublished" datetime="2019-08-20T09:53:15+08:00">2019-08-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-21 09:04:22" itemprop="dateModified" datetime="2019-08-21T09:04:22+08:00">2019-08-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在由 1 x 1 方格组成的 N x N 网格 grid 中，每个 1 x 1 方块由 /、\ 或空格构成。这些字符会将方块划分为一些共边的区域。</p>
+<p>（请注意，反斜杠字符是转义的，因此 \ 用 “\“ 表示。）。</p>
+<p>返回区域的数目。</p>
+<p>示例 1：</p>
+<p>输入：<br>[<br>  “ /“,<br>  “/ “<br>]<br>输出：2<br>解释：2x2 网格如下：</p>
+<p>示例 2：</p>
+<p>输入：<br>[<br>  “ /“,<br>  “  “<br>]<br>输出：1<br>解释：2x2 网格如下：</p>
+<p>示例 3：</p>
+<p>输入：<br>[<br>  “\/“,<br>  “/\“<br>]<br>输出：4<br>解释：（回想一下，因为 \ 字符是转义的，所以 “\/“ 表示 \/，而 “/\“ 表示 /\。）<br>2x2 网格如下：</p>
+<p>示例 4：</p>
+<p>输入：<br>[<br>  “/\“,<br>  “\/“<br>]<br>输出：5<br>解释：（回想一下，因为 \ 字符是转义的，所以 “/\“ 表示 /\，而 “\/“ 表示 \/。）<br>2x2 网格如下：</p>
+<p>示例 5：</p>
+<p>输入：<br>[<br>  “//“,<br>  “/ “<br>]<br>输出：3<br>解释：2x2 网格如下：</p>
+<p>提示：</p>
+<p>1 &lt;= grid.length == grid[0].length &lt;= 30<br>grid[i][j] 是 ‘/‘、’\’、或 ‘ ‘。</p>
+<p><em>思路：将 / 转为 001 010 100. 空格转为 000 000 000 \转为 100 010 001。 将原来n</em>n方格转为3n <em> 3n 方格。求0的连通量个数。 比如 // / 转化为 001001 010010 100100 001000 010000 100000。再使用并查集求连通分量的数目</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionSet</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">//将整个过程用对角线分成四个部分，并且按照顺时针编号</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">		<span class="comment">//每个小格子都用按照递增编号</span></span><br><span class="line">    UnionSet(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            parent.push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[num] != num) &#123;</span><br><span class="line">            num = find(parent[num]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">      <span class="comment">//return parent[num]==num?num:find(parent[num]);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = find(x);</span><br><span class="line">        <span class="keyword">int</span> b = find(y);</span><br><span class="line">        parent[a] = b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parent.size(); ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (parent[i] == i) &#123;</span><br><span class="line">                sum++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">regionsBySlashes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = grid.size();</span><br><span class="line">        <span class="function">UnionSet <span class="title">unionSet</span><span class="params">(<span class="number">4</span> * n * n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                <span class="keyword">int</span> start = <span class="number">4</span> * (i * n + j);</span><br><span class="line">                <span class="keyword">switch</span> (grid[i][j]) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">                        unionSet.merge(start, start + <span class="number">3</span>);</span><br><span class="line">                        unionSet.merge(start + <span class="number">1</span>, start + <span class="number">2</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">'\\'</span>:</span><br><span class="line">                        unionSet.merge(start, start + <span class="number">1</span>);</span><br><span class="line">                        unionSet.merge(start + <span class="number">2</span>, start + <span class="number">3</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">' '</span>:</span><br><span class="line">                        unionSet.merge(start, start + <span class="number">1</span>);</span><br><span class="line">                        unionSet.merge(start + <span class="number">1</span>, start + <span class="number">2</span>);</span><br><span class="line">                        unionSet.merge(start + <span class="number">2</span>, start + <span class="number">3</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    unionSet.merge(start, start - <span class="number">4</span> * n + <span class="number">2</span>);<span class="comment">//将上下两个块连起来</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    unionSet.merge(start + <span class="number">3</span>, start - <span class="number">3</span>);<span class="comment">//将左右两个块连起来</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> unionSet.count();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; f;</span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">fa</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="keyword">return</span> f[x]==x?x:f[x]=fa(f[x]);&#125;<span class="comment">//基于并查集</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">join</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> i=fa(x),j=fa(y);</span><br><span class="line">      <span class="keyword">if</span>(i&gt;j) swap(i,j);</span><br><span class="line">      f[j] = i;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">regionsBySlashes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> ans = <span class="number">1</span>, l=grid.size();</span><br><span class="line">      f.resize((l+<span class="number">1</span>)*(l+<span class="number">1</span>));</span><br><span class="line">    <span class="comment">//[&amp;]表示引用传递方式捕捉所有父作用域的变量, 包括this</span></span><br><span class="line">      <span class="keyword">auto</span> ord=[&amp;](<span class="keyword">int</span> i, <span class="keyword">int</span> j)&#123;<span class="keyword">return</span> i*(l+<span class="number">1</span>)+j;&#125;;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;f.size();++i) </span><br><span class="line">        f[i]=i;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=l;++i)&#123;</span><br><span class="line">          join(<span class="number">0</span>, i); </span><br><span class="line">        	join(<span class="number">0</span>, ord(i,<span class="number">0</span>)); </span><br><span class="line">        	join(<span class="number">0</span>, ord(l,i));</span><br><span class="line">        	join(<span class="number">0</span>, ord(i,l));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;l;++i)&#123;</span><br><span class="line">          <span class="keyword">auto</span> &amp;s = grid[i];</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;l;++j)&#123;</span><br><span class="line">              <span class="keyword">if</span>(s[j]==<span class="string">'\\'</span>)&#123;</span><br><span class="line">                  <span class="keyword">if</span>(fa(ord(i,j)) == fa(ord(i+<span class="number">1</span>, j+<span class="number">1</span>))) ++ans;</span><br><span class="line">                  <span class="keyword">else</span> join(ord(i,j), ord(i+<span class="number">1</span>, j+<span class="number">1</span>));</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">else</span> <span class="keyword">if</span>(s[j] == <span class="string">'/'</span>)&#123;</span><br><span class="line">                  <span class="keyword">if</span>(fa(ord(i+<span class="number">1</span>,j)) == fa(ord(i, j+<span class="number">1</span>))) ++ans;</span><br><span class="line">                  <span class="keyword">else</span> join(ord(i+<span class="number">1</span>,j), ord(i, j+<span class="number">1</span>));</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> ans;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; Map;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; Visit;<span class="comment">//基于BFS</span></span><br><span class="line">    <span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> dy[<span class="number">4</span>] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">regionsBySlashes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; grid)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        N = grid.size();</span><br><span class="line">        Map = <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt;(N * <span class="number">3</span>, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(N * <span class="number">3</span>, <span class="literal">false</span>));</span><br><span class="line">        Visit = <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt;(N * <span class="number">3</span>, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(N * <span class="number">3</span>, <span class="literal">false</span>));</span><br><span class="line">        <span class="keyword">int</span> cntAns = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; grid[i].size(); j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j] == <span class="string">'\\'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Map[<span class="number">3</span> * i][<span class="number">3</span> * j] = <span class="literal">true</span>;</span><br><span class="line">                    Map[<span class="number">3</span> * i + <span class="number">1</span>][<span class="number">3</span> * j + <span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">                    Map[<span class="number">3</span> * i + <span class="number">2</span>][<span class="number">3</span> * j + <span class="number">2</span>] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(grid[i][j] == <span class="string">'/'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Map[<span class="number">3</span> * i][<span class="number">3</span> * j + <span class="number">2</span>] = <span class="literal">true</span>;</span><br><span class="line">                    Map[<span class="number">3</span> * i + <span class="number">1</span>][<span class="number">3</span> * j + <span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">                    Map[<span class="number">3</span> * i + <span class="number">2</span>][<span class="number">3</span> * j] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        for(int i = 0; i &lt; 3 * N; i++)</span></span><br><span class="line"><span class="comment">        &#123;</span></span><br><span class="line"><span class="comment">            for(int j = 0; j &lt; 3 * N; j++)</span></span><br><span class="line"><span class="comment">            &#123;</span></span><br><span class="line"><span class="comment">                cout &lt;&lt; Map[i][j] &lt;&lt; (j == 3 * N - 1? '\n' : ' ');</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        //*/</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span> * N; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span> * N; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(Map[i][j] == <span class="literal">false</span> &amp;&amp; Visit[i][j] == <span class="literal">false</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    cntAns++;</span><br><span class="line">                    BFS(i , j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cntAns;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; q;</span><br><span class="line">        q.push(make_pair(x, y));</span><br><span class="line">        Visit[x][y] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> i = q.front().first;</span><br><span class="line">            <span class="keyword">int</span> j = q.front().second;</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> ii = i + dx[k];</span><br><span class="line">                <span class="keyword">int</span> jj = j + dy[k];</span><br><span class="line">                <span class="keyword">if</span>(ii &lt; <span class="number">0</span> || ii &gt;= <span class="number">3</span> * N || jj &lt; <span class="number">0</span> || jj &gt;= <span class="number">3</span> * N)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(Visit[ii][jj] == <span class="literal">true</span> || Map[ii][jj] == <span class="literal">true</span>)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                Visit[ii][jj] = <span class="literal">true</span>;</span><br><span class="line">                q.push(make_pair(ii, jj));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h6 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h6><p>并查集有两个基本操作：</p>
+<ul>
+<li>Find: 查找元素所属子集。对于<code>Find</code>操作，我们只需要返回该元素所在树的根节点。</li>
+<li>Union：合并两个子集为一个新的集合</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> parent[x] == x ? x : find(parent[x]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该代码比较元素x的父节点parent[x]是否等于x自身，如果是便说明找到了根节点（根节点的父节点是自身），直接返回；否则，把x的父节点parent[x]传入find，直到找到根节点。<br>下面是union操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">to_union</span><span class="params">(<span class="keyword">int</span> x1, <span class="keyword">int</span> x2)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p1 = find(x1);</span><br><span class="line">    <span class="keyword">int</span> p2 = find(x2);</span><br><span class="line">    parent[p1] = p2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>传入两个元素，分别找到根节点，使根节点p1的父节点为p2，即将p1为根节点的这棵树合并到p2为根节点的树上。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/08/18/1104-二叉树寻路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/08/18/1104-二叉树寻路/" class="post-title-link" itemprop="url">1104.二叉树寻路</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-18 18:19:05 / Modified: 19:15:16" itemprop="dateCreated datePublished" datetime="2019-08-18T18:19:05+08:00">2019-08-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在一棵无限的二叉树上，每个节点都有两个子节点，树中的节点 逐行 依次按 “之” 字形进行标记。</p>
+<p>如下图所示，在奇数行（即，第一行、第三行、第五行……）中，按从左到右的顺序进行标记；</p>
+<p>而偶数行（即，第二行、第四行、第六行……）中，按从右到左的顺序进行标记。</p>
+<p><img src="/cj/2019/08/18/1104-二叉树寻路/tree.png" alt="img"></p>
+<p>给你树上某一个节点的标号 label，请你返回从根节点到该标号为 label 节点的路径，该路径是由途经的节点标号所组成的。</p>
+<p>示例 1：</p>
+<p>输入：label = 14<br>输出：[1,3,4,14]<br>示例 2：</p>
+<p>输入：label = 26<br>输出：[1,2,6,10,26]</p>
+<p>提示：</p>
+<p>1 &lt;= label &lt;= 10^6</p>
+<p><em>思路：这个问题看上去不太好做，我们首先分析一下。首先我们知道每一层有2l−12l−1个节点，其中<code>l</code>表示第<code>l</code>层，每一层的起始数字是2l−12l−1，结束数字是2l−12l−1，当然这个顺序会根据奇数行和偶数行的不同出现逆向。那么对于给定数字<code>label</code>，我们一定可以知道它是第几层第几个。我们假设是<code>i</code>层<code>j</code>个，那么它的父亲节点一定是<code>i-1</code>层<code>j//2</code>个。依照这个思路，我们只需要从后向前找到每一层的节点即可。</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pathInZigZagTree(<span class="keyword">int</span> label) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;re;</span><br><span class="line">        <span class="keyword">int</span> level = <span class="built_in">log</span>(label) / <span class="built_in">log</span>(<span class="number">2</span>) + <span class="number">1</span>,left=<span class="number">0</span>;<span class="comment">//正常的满二叉树的最左边的节点是2**（i-1）</span></span><br><span class="line">        <span class="keyword">int</span> index=label-(<span class="keyword">int</span>)<span class="built_in">pow</span>(<span class="number">2</span>,level<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span>(level%<span class="number">2</span>==<span class="number">0</span>)<span class="comment">//偶数行从右到左编号，所以index需要反过来</span></span><br><span class="line">            index-=(<span class="built_in">pow</span>(<span class="number">2</span>,level<span class="number">-1</span>)<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=level;j&gt;<span class="number">0</span>;j--)</span><br><span class="line">        &#123;</span><br><span class="line">            left=j%<span class="number">2</span>?<span class="built_in">pow</span>(<span class="number">2</span>,j<span class="number">-1</span>):<span class="built_in">pow</span>(<span class="number">2</span>,j)<span class="number">-1</span>;</span><br><span class="line">            re.push_back(left+index);</span><br><span class="line">            index/=<span class="number">-2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(re.begin(),re.end());</span><br><span class="line">        <span class="keyword">return</span> re;</span><br></pre></td></tr></table></figure>
+<p>为了方便理解，所以特别画了一张整个过程的计算过程</p>
+<p><img src="/cj/2019/08/18/1104-二叉树寻路/WechatIMG1.jpeg" alt="WechatIMG1"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/07/03/天池新人实战赛o2o优惠券使用预测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cj">
+      <meta itemprop="description" content="学习记录Blog">
+      <meta itemprop="image" content="/cj/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="人生贵在坚持">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/cj/2019/07/03/天池新人实战赛o2o优惠券使用预测/" class="post-title-link" itemprop="url">天池新人实战赛o2o优惠券使用预测</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-03 10:38:58 / Modified: 11:05:13" itemprop="dateCreated datePublished" datetime="2019-07-03T10:38:58+08:00">2019-07-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/天池/" itemprop="url" rel="index"><span itemprop="name">天池</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a><strong>数据</strong></h2></li>
+<li><p>​    本赛题提供用户在2016年1月1日至2016年6月30日之间真实线上线下消费行为，预测用户在2016年7月领取优惠券后15天以内的使用情况。<br>注意： 为了保护用户和商家的隐私，所有数据均作匿名处理，同时采用了有偏采样和必要过滤。</p>
+</li>
+<li><h2 id="评价方式"><a href="#评价方式" class="headerlink" title="评价方式"></a><strong>评价方式</strong></h2></li>
+<li><p>​    本赛题目标是预测投放的优惠券是否核销。针对此任务及一些相关背景知识，使用优惠券核销预测的平均AUC（ROC曲线下面积）作为评价标准。 即对每个优惠券coupon_id单独计算核销预测的AUC值，再对所有优惠券的AUC值求平均作为最终的评价标准。 关于AUC的含义与具体计算方法，可参考<a href="https://zh.wikipedia.org/wiki/ROC曲线#.E6.9B.B2.E7.B7.9A.E4.B8.8B.E9.9D.A2.E7.A9.8D.EF.BC.88AUC.EF.BC.89" target="_blank" rel="noopener">维基百科</a></p>
+</li>
+<li><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a><strong>数据集</strong></h3></li>
+</ul>
+<hr>
+<ul>
+<li><p>Table 1: 用户线下消费和优惠券领取行为</p>
+</li>
+<li><p>| <strong>Field</strong>     | <strong>Description</strong>                                              |<br>| ————- | ———————————————————— |<br>| User_id       | 用户ID                                                       |<br>| Merchant_id   | 商户ID                                                       |<br>| Coupon_id     | 优惠券ID：null表示无优惠券消费，此时Discount_rate和Date_received字段无意义 |<br>| Discount_rate | 优惠率：x \in [0,1]代表折扣率；x:y表示满x减y。单位是元（打算全部变为折扣率统一标准） |<br>| Distance      | user经常活动的地点离该merchant的最近门店距离是x*500米（如果是连锁店，则取最近的一家门店），x\in[0,10]；null表示无此信息，0表示低于500米，10表示大于5公里； |<br>| Date_received | 领取优惠券日期                                               |<br>| Date          | 消费日期：如果Date=null &amp; Coupon_id != null，该记录表示领取优惠券但没有使用，即负样本；如果Date!=null &amp; Coupon_id = null，则表示普通消费日期；如果Date!=null &amp; Coupon_id != null，则表示用优惠券消费日期，即正样本； |</p>
+</li>
+<li><p>Table 2: 用户线上点击/消费和优惠券领取行为</p>
+</li>
+<li><p>| <strong>Field</strong>     | <strong>Description</strong>                                              |<br>| ————- | :———————————————————– |<br>| User_id       | 用户ID                                                       |<br>| Merchant_id   | 商户ID                                                       |<br>| Action        | 0 点击， 1购买，2领取优惠券                                  |<br>| Coupon_id     | 优惠券ID：null表示无优惠券消费，此时Discount_rate和Date_received字段无意义。“fixed”表示该交易是限时低价活动。 |<br>| Discount_rate | 优惠率：x \in [0,1]代表折扣率；x:y表示满x减y；“fixed”表示低价限时优惠；（fixed怎么处理需要好好想一下，因为没有具体的价格用-1吧） |<br>| Date_received | 领取优惠券日期                                               |<br>| Date          | 消费日期：如果Date=null &amp; Coupon_id != null，该记录表示领取优惠券但没有使用；如果Date!=null &amp; Coupon_id = null，则表示普通消费日期；如果Date!=null &amp; Coupon_id != null，则表示用优惠券消费日期；（应该有单独的一行整合是否领取，消费优惠券的情况） |</p>
+</li>
+<li><p>Table 3：用户O2O线下优惠券使用预测样本</p>
+</li>
+<li><p>| <strong>Field</strong>     | <strong>Description</strong>                                              |<br>| ————- | ———————————————————— |<br>| User_id       | 用户ID                                                       |<br>| Merchant_id   | 商户ID                                                       |<br>| Coupon_id     | 优惠券ID                                                     |<br>| Discount_rate | 优惠率：x \in [0,1]代表折扣率；x:y表示满x减y.                |<br>| Distance      | user经常活动的地点离该merchant的最近门店距离是x*500米（如果是连锁店，则取最近的一家门店），x\in[0,10]；null表示无此信息，0表示低于500米，10表示大于5公里； |<br>| Date_received | 领取优惠券日期                                               |</p>
+</li>
+<li><p>Table 4：选手提交文件字段，其中user_id,coupon_id和date_received均来自Table 3,而Probability为预测值</p>
+</li>
+<li><p>| <strong>Field</strong>     | <strong>Description</strong>                |<br>| ————- | —————————— |<br>| User_id       | 用户ID                         |<br>| Coupon_id     | 优惠券ID                       |<br>| Date_received | 领取优惠券日期                 |<br>| Probability   | 15天内用券概率，由参赛选手给出 |</p>
+</li>
+</ul>
+<p>疑问：</p>
+<ul>
+<li>不是很清楚Table 3用来干嘛的？是他自己的预测值吗</li>
+<li>其他的数据处理大概知道怎么做了</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/07/01/24-两两交换链表中的节点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1335,686 +2071,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/22/131-分割回文串/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/05/22/131-分割回文串/" class="post-title-link" itemprop="url">131.分割回文串</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-22 15:26:47" itemprop="dateCreated datePublished" datetime="2019-05-22T15:26:47+08:00">2019-05-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-23 17:24:25" itemprop="dateModified" datetime="2019-05-23T17:24:25+08:00">2019-05-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>给定一个字符串 <em>s</em>，将 <em>s</em> 分割成一些子串，使每个子串都是回文串。</p>
-<p>返回 <em>s</em> 所有可能的分割方案。</p>
-<p><strong>示例:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;aab&quot;</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p><em>思路：和前面所做的那些全排序感觉是一样的，就是从s的开头遍历，先分为两部分，当前部分为回文时，再对后部分进行拆分进行判断回文，这样可以拆出来所有的可能的结果。</em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> first=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end=s.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(first&lt;end)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[first++]!=s[end--])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="keyword">int</span> pos,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp; tmp,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp; ans,<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pos==s.size())</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="comment">//当已经判断完了最后一个字符，则将tmp push进ans中</span></span><br><span class="line">            ans.push_back(tmp);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=pos;i&lt;s.length();++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(isPalindrome(s.substr(pos,i-pos+<span class="number">1</span>)))<span class="comment">//前半部分是否为回文</span></span><br><span class="line">            &#123;</span><br><span class="line">              <span class="comment">//保存结果</span></span><br><span class="line">                tmp.push_back(s.substr(pos,i-pos+<span class="number">1</span>));</span><br><span class="line">              <span class="comment">//继续判断后半部分</span></span><br><span class="line">                helper(i+<span class="number">1</span>,tmp,ans,s);</span><br><span class="line">              <span class="comment">//弹出刚刚push进的元素，然后重新放入新的元素进行判断</span></span><br><span class="line">                tmp.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; partition(<span class="built_in">string</span> s) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp;</span><br><span class="line">        helper(<span class="number">0</span>,tmp,ans,s);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/20/machineTranslator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/05/20/machineTranslator/" class="post-title-link" itemprop="url">machineTranslator</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-20 17:03:01 / Modified: 17:04:38" itemprop="dateCreated datePublished" datetime="2019-05-20T17:03:01+08:00">2019-05-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基于神经网络的机器翻译"><a href="#基于神经网络的机器翻译" class="headerlink" title="基于神经网络的机器翻译"></a>基于神经网络的机器翻译</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/20/877-石子游戏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/05/20/877-石子游戏/" class="post-title-link" itemprop="url">877.石子游戏</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-20 15:03:33 / Modified: 15:19:27" itemprop="dateCreated datePublished" datetime="2019-05-20T15:03:33+08:00">2019-05-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>亚历克斯和李用几堆石子在做游戏。偶数堆石子<strong>排成一行</strong>，每堆都有正整数颗石子 <code>piles[i]</code> 。</p>
-<p>游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。</p>
-<p>亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。</p>
-<p>假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 <code>true</code> ，当李赢得比赛时返回 <code>false</code> 。</p>
-<p><strong>示例：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：[5,3,4,5]</span><br><span class="line">输出：true</span><br><span class="line">解释：</span><br><span class="line">亚历克斯先开始，只能拿前 5 颗或后 5 颗石子 。</span><br><span class="line">假设他取了前 5 颗，这一行就变成了 [3,4,5] 。</span><br><span class="line">如果李拿走前 3 颗，那么剩下的是 [4,5]，亚历克斯拿走后 5 颗赢得 10 分。</span><br><span class="line">如果李拿走后 5 颗，那么剩下的是 [3,4]，亚历克斯拿走后 4 颗赢得 9 分。</span><br><span class="line">这表明，取前 5 颗石子对亚历克斯来说是一个胜利的举动，所以我们返回 true 。</span><br></pre></td></tr></table></figure>
-<p><strong>提示：</strong></p>
-<ol>
-<li><code>2 &lt;= piles.length &lt;= 500</code></li>
-<li><code>piles.length</code> 是偶数。</li>
-<li><code>1 &lt;= piles[i] &lt;= 500</code></li>
-<li><code>sum(piles)</code> 是奇数。</li>
-</ol>
-<p><em>思路：这道题的思路我觉得没啥好说的，一点坑都没有，按照最原始的想法完成就好了。</em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">stoneGame</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; piles)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size=piles.size();</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>,right=size<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> sum1=<span class="number">0</span>,sum2=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(cnt%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                 <span class="keyword">if</span>(piles[left]&gt;=piles[right])</span><br><span class="line">            &#123;</span><br><span class="line">                sum1+=piles[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                sum1+=piles[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(piles[left]&gt;=piles[right])</span><br><span class="line">            &#123;</span><br><span class="line">                sum2+=piles[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                sum2+=piles[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">                </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sum1&gt;sum2)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjiecjj.github.io/cj/2019/05/20/knowledge/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="cj">
-      <meta itemprop="description" content="学习记录Blog">
-      <meta itemprop="image" content="/cj/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="人生贵在坚持">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cj/2019/05/20/knowledge/" class="post-title-link" itemprop="url">knowlege</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-20 14:31:36 / Modified: 15:20:25" itemprop="dateCreated datePublished" datetime="2019-05-20T14:31:36+08:00">2019-05-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/cj/categories/Knowledge/" itemprop="url" rel="index"><span itemprop="name">Knowledge</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><p>n个节点构成的二叉树个数:  <code>C(2*n,n)/(n+1)</code></p>
-</li>
-<li><p>所谓系统调用，就是内核提供的、功能十分强大的一系列的函数。这些系统调用是在内核中实现的，再通过一定的方式把系统调用给用户，一般都通过门(gate)陷入(trap)实现。系统调用是用户程序和内核交互的接口。5个系统调用∶open,write,read,close,ioctl。</p>
-</li>
-<li></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2063,7 +2119,7 @@
                 
                   <a href="/cj/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
